@@ -1,5 +1,4 @@
 package net.outmoded.outmodedlib.hook;
-import me.clip.placeholderapi.PlaceholderAPI;
 
 import static org.bukkit.Bukkit.getServer;
 
