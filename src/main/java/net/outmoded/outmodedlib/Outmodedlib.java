@@ -1,13 +1,14 @@
 package net.outmoded.outmodedlib;
 
 import de.tr7zw.changeme.nbtapi.NBT;
-import net.outmoded.outmodedlib.outmodedlibGUIContainer.ContainerListener;
-import net.outmoded.outmodedlib.outmodedlibGUIContainer.ContainerManager;
+import net.outmoded.outmodedlib.GUIcontainers.ContainerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class Outmodedlib extends JavaPlugin {
+
+
 
     @Override
     public void onEnable() {
@@ -15,10 +16,7 @@ public final class Outmodedlib extends JavaPlugin {
             getLogger().info("Outmodedlib's Shaded NBT-API Has Broken Really Bad Things Will Happen.......");
         }
 
-        ContainerManager containerManager = new ContainerManager();
-
-        ContainerListener containerListener = new ContainerListener(containerManager);
-        Bukkit.getPluginManager().registerEvents(containerListener, this);
+        Bukkit.getPluginManager().registerEvents(new ContainerListener(), this);
 
 
     }
@@ -32,4 +30,5 @@ public final class Outmodedlib extends JavaPlugin {
     public static Outmodedlib getInstance() {
         return getPlugin(Outmodedlib.class);
     }
+
 }

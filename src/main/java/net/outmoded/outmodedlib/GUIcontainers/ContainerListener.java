@@ -1,4 +1,4 @@
-package net.outmoded.outmodedlib.outmodedlibGUIContainer;
+package net.outmoded.outmodedlib.GUIcontainers;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,12 +8,9 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 public class ContainerListener implements Listener {
-    private final ContainerManager containerManager; // active instance of the container manager
+    private final ContainerManager containerManager = ContainerManager.getInstance(); // active instance of the container manager
 
 
-    public ContainerListener(ContainerManager containerManager) {
-        this.containerManager = containerManager;
-    }
 
     @EventHandler
     public void onClick(InventoryClickEvent event){

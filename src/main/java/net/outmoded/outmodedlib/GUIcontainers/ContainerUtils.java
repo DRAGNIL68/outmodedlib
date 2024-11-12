@@ -1,4 +1,4 @@
-package net.outmoded.outmodedlib.outmodedlibGUIContainer;
+package net.outmoded.outmodedlib.GUIcontainers;
 
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -8,8 +8,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class ContainerUtils {
 
-    public static String setName(String name){
+    public static String setCheck(String name){
         // check for custom glyphs i.e :hi: and replace with unicode
+
         return name;
     }
 

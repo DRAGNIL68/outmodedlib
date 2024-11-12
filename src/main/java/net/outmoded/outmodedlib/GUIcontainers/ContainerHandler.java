@@ -1,4 +1,4 @@
-package net.outmoded.outmodedlib.outmodedlibGUIContainer;
+package net.outmoded.outmodedlib.GUIcontainers;
 
 
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 public interface ContainerHandler {
-    void register(); // this is where you put startup info like inv size, name, etc...
+
     void onClick(InventoryClickEvent event);
 
     void onOpen(InventoryOpenEvent event);
