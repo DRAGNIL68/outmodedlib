@@ -18,7 +18,7 @@ public class BlockPlaceListener implements Listener {
 
         } else if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             ItemStack itemStack = event.getItem();
-            ItemManager.isCustomItem(itemStack);
+            ItemManager.isCustomItemStack(itemStack);
             //code
 
         }

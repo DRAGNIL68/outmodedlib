@@ -8,28 +8,26 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 public class ContainerListener implements Listener {
-    private final ContainerManager containerManager = ContainerManager.getInstance(); // active instance of the container manager
-
 
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
-        this.containerManager.handleClick(event);
+        ContainerManager.handleClick(event);
 
     }
 
     @EventHandler
     public void onOpen(InventoryOpenEvent event){
-        this.containerManager.handleOpen(event);
+        ContainerManager.handleOpen(event);
     }
 
     @EventHandler
     public void onClose(InventoryCloseEvent event){
-        this.containerManager.handleClose(event);
+        ContainerManager.handleClose(event);
     }
 
     @EventHandler
     public void onDrag(InventoryDragEvent event){
-        this.containerManager.handleDrag(event);
+        ContainerManager.handleDrag(event);
     }
 }

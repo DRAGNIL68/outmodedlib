@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class ContainerManager {
     private final static Map<Inventory, ContainerHandler> loadedContainers = new HashMap<>();
-    private final static ContainerManager containerManager = new ContainerManager();
     private ContainerManager(){
 
     }
@@ -52,10 +51,6 @@ public class ContainerManager {
         if (handler != null) {
             handler.onDrag(event);
         }
-    }
-
-    public static ContainerManager getInstance(){
-        return containerManager;
     }
 
 }

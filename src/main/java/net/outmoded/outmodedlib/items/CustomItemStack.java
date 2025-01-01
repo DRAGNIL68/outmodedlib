@@ -35,7 +35,7 @@ public class CustomItemStack {
         // needs looking into see:https://github.com/PluginBugs/Issues-ItemsAdder/issues/3536
     }
 
-    public void getDurability(int startDurablity){
+    public void getDurability(){
         // needs looking into see:https://github.com/PluginBugs/Issues-ItemsAdder/issues/3536
     }
 
@@ -43,8 +43,8 @@ public class CustomItemStack {
         // needs looking into see:https://github.com/PluginBugs/Issues-ItemsAdder/issues/3536
     }
 
-    public void getType(int startDurablity){
-        // needs looking into see:https://github.com/PluginBugs/Issues-ItemsAdder/issues/3536
+    public Type getType(){
+        return type;
     }
 
     public ItemStack getAsItemStack(){
@@ -55,13 +55,14 @@ public class CustomItemStack {
         return NBT.get(item, nbt -> (String) nbt.getString("outmodedlib.namespaceId"));
     }
 
+    public CustomItemStack clone(){
+        return ItemManager.convertToCustomItemStack(item);
+    }
+
+
     enum Type{
         ITEM,
         BLOCK
     }
 
 }
-// ItemStack
-// OutmodedlibItemSack
-// CustomStack
-// CustomItemStack

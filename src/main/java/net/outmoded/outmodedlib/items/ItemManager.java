@@ -1,28 +1,31 @@
 package net.outmoded.outmodedlib.items;
 
 import de.tr7zw.changeme.nbtapi.NBT;
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static org.bukkit.Bukkit.getServer;
+
 public class ItemManager {
-    private final static Map<String, CustomItemStack> loadedCustomItemStacks = new HashMap<>(); // probablly a better idea for this to store a hasmap per namespace :TODO do this <--
+    private final static Map<String, CustomItemStack> loadedCustomItemStacks = new HashMap<>(); // probablly a better idea for this to store a hashmap per namespace :TODO do this <--
     private final static ItemManager itemManager = new ItemManager();
 
     private ItemManager(){
+
 
     }
 
 
     public static void registerCustomItemStack(CustomItemStack customItemStack){
-        if (!loadedCustomItemStacks.containsKey(customItemStack.getAsItemStack().getItemMeta().getDisplayName())) {
-            loadedCustomItemStacks.put("namespace:" + customItemStack.getAsItemStack().getItemMeta().getDisplayName(),customItemStack);
+        if (!loadedCustomItemStacks.containsKey(customItemStack.getNamespaceId())) {
+            loadedCustomItemStacks.put(customItemStack.getNamespaceId() ,customItemStack);
         }
         else{
-            // change item id to id + _
-            registerCustomItemStack(customItemStack); // WARNING: this is self calling method, if this breaks violently insult DRAGNIL68
+            getServer().getConsoleSender().sendMessage(ChatColor.RED + "Item already registered with namespaceId " + customItemStack.getNamespaceId());
 
         }
 
@@ -30,22 +33,20 @@ public class ItemManager {
     }
 
     public static void unregisterCustomItemStack(String namespaceId){
-        if (loadedCustomItemStacks.containsKey(namespaceId)) {
-            loadedCustomItemStacks.remove(namespaceId);
-        }
-
+        loadedCustomItemStacks.remove(namespaceId);
 
     }
 
     public static CustomItemStack getCustomItemStack(String namespaceId){
-        return loadedCustomItemStacks.get(namespaceId);
+        CustomItemStack customItemStack = loadedCustomItemStacks.get(namespaceId);
+        return customItemStack.clone();
     }
 
-    public static boolean itemExists(String namespaceId){
-        return loadedCustomItemStacks.containsKey("frog");
+    public static boolean customItemStackExists(String namespaceId){
+        return loadedCustomItemStacks.containsKey(namespaceId);
     }
 
-    public static boolean isCustomItem(ItemStack itemStack){
+    public static boolean isCustomItemStack(ItemStack itemStack){
         try {
             String namespaceid = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceid"));
             return namespaceid != null;
@@ -74,7 +75,7 @@ public class ItemManager {
     }
 
     public static CustomItemStack convertToCustomItemStack(ItemStack itemStack){
-        if (!ItemManager.isCustomItem(itemStack)){
+        if (!ItemManager.isCustomItemStack(itemStack)){
             CustomItemStack.Type type;
             String namespaceid = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceid"));
             if(Objects.equals(NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.type")), "BlOCK")) {
@@ -89,7 +90,8 @@ public class ItemManager {
             customItemStack.setDisplayName(itemStack.getItemMeta().getDisplayName());
             // apply custom max durability
             // apply current durability
-            // apply custom nbt :TODO learn how the hell you do this
+            customItemStack.getAsItemStack().setItemMeta(itemStack.getItemMeta());
+            return customItemStack;
         }
         return null;
     }
