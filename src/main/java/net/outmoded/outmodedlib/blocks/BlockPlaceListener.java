@@ -1,5 +1,6 @@
-package net.outmoded.outmodedlib.items;
+package net.outmoded.outmodedlib.blocks;
 
+import net.outmoded.outmodedlib.items.ItemManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
