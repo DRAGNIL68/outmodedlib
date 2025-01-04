@@ -11,8 +11,8 @@ import java.util.Objects;
 import static org.bukkit.Bukkit.getServer;
 
 public class ItemManager {
-    private final static Map<String, CustomItemStack> loadedCustomItemStacks = new HashMap<>(); // probablly a better idea for this to store a hashmap per namespace :TODO do this <--
-    private final static ItemManager itemManager = new ItemManager();
+    private final static Map<String, CustomItemStack> loadedCustomItemStacks = new HashMap<>(); // probably a better idea for this to store a hashmap per namespace :TODO do this <--
+
 
     private ItemManager(){
 
@@ -20,13 +20,14 @@ public class ItemManager {
     }
 
 
-    public static void registerCustomItemStack(CustomItemStack customItemStack){
+    public static boolean registerCustomItemStack(CustomItemStack customItemStack){
         if (!loadedCustomItemStacks.containsKey(customItemStack.getNamespaceId())) {
-            loadedCustomItemStacks.put(customItemStack.getNamespaceId() ,customItemStack);
+            loadedCustomItemStacks.put(customItemStack.getNamespaceId() , customItemStack);
+            return true;
         }
         else{
             getServer().getConsoleSender().sendMessage(ChatColor.RED + "Item already registered with namespaceId " + customItemStack.getNamespaceId());
-
+            return false;
         }
 
 
@@ -49,9 +50,17 @@ public class ItemManager {
     public static boolean isCustomItemStack(ItemStack itemStack){
         try {
             String namespaceid = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceid"));
-            return namespaceid != null;
+            if (namespaceid == null)
+                return false;
 
-        } catch (Exception e) {
+            if (customItemStackExists(namespaceid))
+                return true;
+
+            else
+                return false;
+
+        }
+        catch (Exception e) {
             return false;
 
 
@@ -59,13 +68,13 @@ public class ItemManager {
 
     }
 
-    public static CustomItemStack getCustomItemType(ItemStack itemStack) {
+    public static String getCustomItemStackType(ItemStack itemStack) {
         try {
             String namespaceid = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceid"));
             if (namespaceid == null) {
-
+                return null;
             }
-            return ItemManager.getCustomItemStack(namespaceid);
+            return namespaceid;
 
         } catch (Exception e) {
             return null;
@@ -78,6 +87,7 @@ public class ItemManager {
         if (!ItemManager.isCustomItemStack(itemStack)){
             CustomItemStack.Type type;
             String namespaceid = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceid"));
+
             if(Objects.equals(NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.type")), "BlOCK")) {
                 type = CustomItemStack.Type.BLOCK;
             }
