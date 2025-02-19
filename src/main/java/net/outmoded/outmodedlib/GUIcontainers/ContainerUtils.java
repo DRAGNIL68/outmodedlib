@@ -8,12 +8,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class ContainerUtils {
 
-    public static String setCheck(String name){
-        // check for custom glyphs i.e :hi: and replace with unicode
-
-        return name;
-    }
-
     public static void setAllowedClickSlots(int[] allowedSlots, InventoryClickEvent event){
 
         int eventSlot =  event.getSlot();

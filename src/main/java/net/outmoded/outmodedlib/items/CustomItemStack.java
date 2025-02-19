@@ -1,7 +1,15 @@
 package net.outmoded.outmodedlib.items;
 
+import com.google.common.collect.Multimap;
 import de.tr7zw.changeme.nbtapi.NBT;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attributable;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -9,33 +17,39 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class CustomItemStack {
     private final ItemStack itemStack; // vanilla item used
     private final String namespaceId; // I.e. test:cool_item
-    private final Type type; // if it can be placed or no not TODO: is this needed?
 
-    private String model = "generated-16x"; // "generated-16x", "generated-32x" or "model path"
-    private String texture = null; // "null = no texture" or "texture path"
 
-    public CustomItemStack(Material material, Type type, String namespaceId) {
+    private String model; // test_namespace
+
+    public CustomItemStack(Material material, String namespaceId) {
         itemStack = new ItemStack(material);
         itemStack.getItemMeta();
-        this.type = type;
         if (namespaceId.indexOf(":") != namespaceId.lastIndexOf(":")){
             throw new RuntimeException("Cannot use ':' in item namespaceId except for separating namespace and id");
         }
         this.namespaceId = namespaceId;
 
         NBT.modify(itemStack, nbt -> {
-            nbt.setString("outmodedlib.namespaceid", namespaceId);
-            nbt.setString("outmodedlib.type", String.valueOf(type));
-
+            nbt.setString("outmodedlib_namespaceId", namespaceId);
         });
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setAttributeModifiers(null);
     }
 
-    public void setDisplayName(String name){
-        itemStack.getItemMeta().setDisplayName(name);
+    public void setName(String itemName){
+        final Component component = MiniMessage.miniMessage().deserialize(itemName);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.itemName(component);
+        itemStack.setItemMeta(itemMeta);
     }
 
-    public String getDisplayName(){
-        return itemStack.getItemMeta().getDisplayName();
+    public Component getName(){
+        if (itemStack.getItemMeta().hasDisplayName()){
+            return itemStack.getItemMeta().displayName();
+
+        }
+
+        return null;
     }
 
     public void setDurability(int durablity){
@@ -46,18 +60,14 @@ public class CustomItemStack {
         // needs looking into see:https://github.com/PluginBugs/Issues-ItemsAdder/issues/3536
     }
 
-    public void setTexture(String path){
-        texture = path;
+    public void setModel(String namespace, String modelDefPath){
+        NamespacedKey modelKey = new NamespacedKey(namespace, modelDefPath);
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setItemModel(modelKey);
+        itemStack.setItemMeta(meta);
+        model = namespace;
     }
 
-    public void setModel(String path){
-        model = path;
-    }
-
-    public String getTexture() {
-        return texture;
-
-    }
     public String getModel(){
         return model;
     }
@@ -66,20 +76,18 @@ public class CustomItemStack {
     public void setMaxDurability(int maxDurabilty){
         ItemMeta meta = itemStack.getItemMeta();
         Damageable damageable = (Damageable) meta;
-        damageable.setDamage(maxDurabilty);
+        damageable.setMaxDamage(maxDurabilty);
         itemStack.setItemMeta(damageable);
     }
 
-    public Type getType(){
-        return type;
-    }
 
-    public ItemStack getAsItemStack(){
+
+    public ItemStack asItemStack(){
         return itemStack;
     }
 
     public String getNamespaceId(){
-        return NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceId"));
+        return namespaceId;
     }
 
     public int getDurability(){
@@ -95,15 +103,33 @@ public class CustomItemStack {
     }
 
     public CustomItemStack clone(){
-        return ItemManager.convertToCustomItemStack(itemStack);
+
+        ItemMeta itemMeta = this.itemStack.getItemMeta();
+
+        CustomItemStack customItemStack = new CustomItemStack(itemStack.getType(), namespaceId);
+
+        ItemStack itemStack = customItemStack.asItemStack();
+
+        itemStack.setItemMeta(itemMeta);
+
+        return customItemStack;
     }
 
+    public void setAttribute(Attribute attribute,AttributeModifier.Operation operation, Double value){
+        ItemMeta meta = itemStack.getItemMeta();
+        NamespacedKey key = new NamespacedKey("outmodedlib", "attack_speed");
+        Multimap<Attribute, AttributeModifier> modifiers = meta.getAttributeModifiers();
+        AttributeModifier attributeModifier = new AttributeModifier(key, value, operation);
+        meta.addAttributeModifier(attribute, attributeModifier);
+
+        if (modifiers != null){
 
 
-
-    enum Type{ // this may or may not be completely useless
-        ITEM,
-        BLOCK
+            for (AttributeModifier modifier : modifiers.get(attribute)) {
+                meta.addAttributeModifier(attribute, attributeModifier);
+            }
+        }
+        itemStack.setItemMeta(meta);
     }
 
 }

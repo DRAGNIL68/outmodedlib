@@ -5,6 +5,8 @@ import net.outmoded.outmodedlib.GUIcontainers.ContainerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.nio.file.Path;
+
 
 public final class Outmodedlib extends JavaPlugin {
 
@@ -15,7 +17,7 @@ public final class Outmodedlib extends JavaPlugin {
         if (!NBT.preloadApi()){
             getLogger().info("Outmodedlib's Shaded NBT-API Has Broken Really Bad Things Will Happen.......");
         }
-
+        PackGenTest.runPack();
         Bukkit.getPluginManager().registerEvents(new ContainerListener(), this);
 
 

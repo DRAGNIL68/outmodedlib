@@ -35,16 +35,17 @@ public class Namespace {
         return namespace;
     }
 
-    public void writeJsonObject(Writable object, String writePath){
-        resourcePack.writeJsonObject(object, namespacePath + writePath);
+    public void writeJsonObject(Writable object){
+        object.setFilePath(namespacePath + object.getFilePath());
+        resourcePack.writeJsonObject(object);
     }
 
-    public void createGenericFile(String fileName, String  filePath, String contents){
-        resourcePack.createGenericFile(fileName,namespacePath + filePath, contents);
+    public void createGenericFile(String filePath, String contents){
+        resourcePack.createGenericFile(namespacePath + filePath, contents);
     }
 
-    public void copyFileFromDisk(String copyPath, String  pastePath) {
-        resourcePack.copyFileFromDisk(copyPath, pastePath + pastePath);
+    public boolean copyFileFromDisk(String copyPath, String  pastePath) {
+        return resourcePack.copyFileFromDisk(copyPath, namespacePath + pastePath);
     }
 
     public boolean hasFile(String filePath){

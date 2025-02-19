@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
+import org.bukkit.ChatColor;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.io.IOException;
@@ -14,6 +15,9 @@ import java.nio.file.*;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.apache.logging.log4j.LogManager.getLogger;
+import static org.bukkit.Bukkit.getServer;
 
 public class ResourcePack {
     FileSystem fileSystem;
@@ -33,15 +37,22 @@ public class ResourcePack {
 
     }
 
-    public void copyFileFromDisk(String filePath, String pastePath) {
+    public boolean copyFileFromDisk(String filePath, String pastePath) {
         try {
             Path directory = fileSystem.getPath(pastePath);
             Path path = Paths.get(filePath);
+            if (!Files.exists(path)){
+                return false;
+
+
+            }
             if (!Files.exists(directory)) {
                 Files.createDirectories(directory);
             }
 
             Files.copy(path, directory, StandardCopyOption.REPLACE_EXISTING);
+
+            return true;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -55,10 +66,15 @@ public class ResourcePack {
 
     }
 
-    public void createPath(String path){
+    public boolean createPath(String path){
         try {
             Path directory = fileSystem.getPath(path);
-            Files.createDirectories(directory);
+
+            if (!Files.exists(directory)) {
+                Files.createDirectories(directory);
+                return true;
+            }
+            return false;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -66,19 +82,24 @@ public class ResourcePack {
 
     }
 
-    public void createGenericFile(String fileName, String path, String contents){
+    public void createGenericFile(String filePath, String contents){
         try {
-            Path directory = fileSystem.getPath(path);
 
-            if (!Files.exists(directory)) {
-                Files.createDirectories(directory);
+            String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+
+            Path directory = fileSystem.getPath(filePath);
+
+            getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "frog: " + directory.getFileName().toString() + " : " + directory.getParent());
+
+            if (directory.getParent() != null) {
+                Files.createDirectories(directory.getParent());
             }
 
+            if (!Files.exists(directory)) {
+                Files.createFile(directory);
+            }
 
-
-            Path file = directory.resolve(fileName);
-
-            Files.write(file, ImmutableList.of(contents), StandardCharsets.UTF_8);
+            Files.write(directory, ImmutableList.of(contents), StandardCharsets.UTF_8);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -129,10 +150,10 @@ public class ResourcePack {
         return Files.exists(directory);
     }
 
-    public void writeJsonObject(Writable object, String writePath){
+    public void writeJsonObject(Writable object){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            createGenericFile(object.getFileName(), writePath, objectMapper.writeValueAsString(object));
+            createGenericFile(object.getFilePath(), objectMapper.writeValueAsString(object));
 
 
 

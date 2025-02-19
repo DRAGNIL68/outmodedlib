@@ -1,17 +1,15 @@
 package net.outmoded.outmodedlib.items;
 
 import de.tr7zw.changeme.nbtapi.NBT;
-import org.bukkit.ChatColor;
+import net.outmoded.outmodedlib.items.events.RegisteredItemEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import static org.bukkit.Bukkit.getServer;
 
 public class ItemManager {
-    private final static Map<String, CustomItemStack> loadedCustomItemStacks = new HashMap<>(); // probably a better idea for this to store a hashmap per namespace :TODO do this <--
+    private final static Map<String, CustomItemStack> itemRegistry = new HashMap<>(); // probably a better idea for this to store a hashmap per namespace :TODO do this <--
 
 
     private ItemManager(){
@@ -20,40 +18,58 @@ public class ItemManager {
     }
 
 
-    public static boolean registerCustomItemStack(CustomItemStack customItemStack){
-        if (!loadedCustomItemStacks.containsKey(customItemStack.getNamespaceId())) {
-            loadedCustomItemStacks.put(customItemStack.getNamespaceId() , customItemStack);
-            return true;
-        }
-        else{
-            getServer().getConsoleSender().sendMessage(ChatColor.RED + "Item already registered with namespaceId " + customItemStack.getNamespaceId());
-            return false;
-        }
+    public static void registerCustomItemStack(CustomItemStack customItemStack){
+            if (!itemRegistry.containsKey(customItemStack.getNamespaceId())) {
+                RegisteredItemEvent event = new RegisteredItemEvent(customItemStack.getNamespaceId(), customItemStack);
+                Bukkit.getPluginManager().callEvent(event);
+
+                if (!event.isCancelled()){
+                    itemRegistry.put(customItemStack.getNamespaceId() , customItemStack.clone());
+                }
+
+
+            }
+            else{
+                throw new RuntimeException("Item already registered with namespaceId " + customItemStack.getNamespaceId());
+            }
+
+
+
 
 
     }
 
     public static void unregisterCustomItemStack(String namespaceId){
-        loadedCustomItemStacks.remove(namespaceId);
+        CustomItemStack customItemStack = ItemManager.getCustomItemStack(namespaceId);
+        RegisteredItemEvent event = new RegisteredItemEvent(customItemStack.getNamespaceId(), customItemStack);
+        Bukkit.getPluginManager().callEvent(event);
+
+        if (!event.isCancelled()) {
+            itemRegistry.remove(namespaceId);
+        }
+
 
     }
 
     public static CustomItemStack getCustomItemStack(String namespaceId){
-        CustomItemStack customItemStack = loadedCustomItemStacks.get(namespaceId);
-        return customItemStack.clone();
+        if (itemRegistry.containsKey(namespaceId)){
+            return itemRegistry.get(namespaceId).clone();
+        }
+        return null;
+
     }
 
     public static boolean customItemStackExists(String namespaceId){
-        return loadedCustomItemStacks.containsKey(namespaceId);
+        return itemRegistry.containsKey(namespaceId);
     }
 
     public static boolean isCustomItemStack(ItemStack itemStack){
         try {
-            String namespaceid = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceid"));
-            if (namespaceid == null)
+            String namespaceId = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib_namespaceId"));
+            if (namespaceId == null)
                 return false;
 
-            if (customItemStackExists(namespaceid))
+            if (customItemStackExists(namespaceId))
                 return true;
 
             else
@@ -68,13 +84,13 @@ public class ItemManager {
 
     }
 
-    public static String getCustomItemStackType(ItemStack itemStack) {
+    public static String getCustomItemStackNamespace(ItemStack itemStack) {
         try {
-            String namespaceid = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceid"));
-            if (namespaceid == null) {
+            String namespaceId = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib_namespaceId"));
+            if (namespaceId == null) {
                 return null;
             }
-            return namespaceid;
+            return namespaceId;
 
         } catch (Exception e) {
             return null;
@@ -85,22 +101,12 @@ public class ItemManager {
 
     public static CustomItemStack convertToCustomItemStack(ItemStack itemStack){
         if (!ItemManager.isCustomItemStack(itemStack)){
-            CustomItemStack.Type type;
-            String namespaceid = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.namespaceid"));
+            String namespaceId = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib_namespaceId"));
 
-            if(Objects.equals(NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib.type")), "BlOCK")) {
-                type = CustomItemStack.Type.BLOCK;
-            }
-            else{
-                type = CustomItemStack.Type.ITEM;
-            }
+            CustomItemStack customItemStack = new CustomItemStack(itemStack.getType(), namespaceId);
 
-            CustomItemStack customItemStack = new CustomItemStack(itemStack.getType(), type, namespaceid);
-            // apply texture
-            customItemStack.setDisplayName(itemStack.getItemMeta().getDisplayName());
-            // apply custom max durability
-            // apply current durability
-            customItemStack.getAsItemStack().setItemMeta(itemStack.getItemMeta());
+            customItemStack.asItemStack().setItemMeta(itemStack.getItemMeta());
+
             return customItemStack;
         }
         return null;
