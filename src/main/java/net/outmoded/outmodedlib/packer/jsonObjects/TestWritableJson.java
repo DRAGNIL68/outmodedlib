@@ -13,7 +13,7 @@ public class TestWritableJson extends Writable {
     private String frog;
 
     public TestWritableJson(String frog){
-        super(frog + ".txt");
+        setFilePath(frog + ".txt");
         this.frog = frog;
         testNonWritableClass = new TestNonWritableClass(frog);
     }

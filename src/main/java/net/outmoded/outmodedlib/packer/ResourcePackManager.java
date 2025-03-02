@@ -1,7 +1,7 @@
 package net.outmoded.outmodedlib.packer;
 
 
-import net.outmoded.outmodedlib.GUIcontainers.ContainerHandler;
+
 
 
 import java.util.HashMap;

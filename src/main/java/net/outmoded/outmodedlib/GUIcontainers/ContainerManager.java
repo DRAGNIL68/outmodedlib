@@ -10,13 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ContainerManager {
-    private final static Map<Inventory, ContainerHandler> loadedContainers = new HashMap<>();
+    private final static Map<Inventory, CustomContainer> loadedContainers = new HashMap<>();
     private ContainerManager(){
 
     }
 
-    public static void registerHandledContainer(Inventory container, ContainerHandler handler){
-        loadedContainers.put(container, handler);
+    public static void registerHandledContainer(Inventory container, CustomContainer customContainer){
+        loadedContainers.put(container, customContainer);
 
     }
 
@@ -25,31 +25,39 @@ public class ContainerManager {
     }
 
     public static void handleClick(InventoryClickEvent event){
-        ContainerHandler handler = loadedContainers.get(event.getInventory());
-        if (handler != null) {
-            handler.onClick(event);
+        CustomContainer customContainer = loadedContainers.get(event.getInventory());
+
+        if (customContainer != null) {
+            boolean[] disabledSlots = customContainer.getDisabledSlots();
+
+            if (disabledSlots[event.getSlot()] == true){ // jumps to the correct slot so no need to loop
+                event.setCancelled(true);
+                return;
+            }
+            customContainer.onClick(event);
+
         }
     }
 
     public static void handleOpen(InventoryOpenEvent event){
-        ContainerHandler handler = loadedContainers.get(event.getInventory());
-        if (handler != null) {
-            handler.onOpen(event);
+        CustomContainer customContainer = loadedContainers.get(event.getInventory());
+        if (customContainer != null) {
+            customContainer.onOpen(event);
         }
     }
 
     public static void handleClose(InventoryCloseEvent event){
-        ContainerHandler handler = loadedContainers.get(event.getInventory());
-        if (handler != null) {
-            handler.onClose(event);
+        CustomContainer customContainer = loadedContainers.get(event.getInventory());
+        if (customContainer != null) {
+            customContainer.onClose(event);
         }
         unregisterHandledContainer(event.getInventory());
     }
 
     public static void handleDrag(InventoryDragEvent event){
-        ContainerHandler handler = loadedContainers.get(event.getInventory());
-        if (handler != null) {
-            handler.onDrag(event);
+        CustomContainer customContainer = loadedContainers.get(event.getInventory());
+        if (customContainer != null) {
+            customContainer.onDrag(event);
         }
     }
 

@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
+import net.outmoded.outmodedlib.Outmodedlib;
 import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.ApiStatus;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -29,7 +31,7 @@ public class ResourcePack {
         this.name = name;
         createPath("/assets");
 
-        Namespace minecraft = new Namespace("minecraft", this);
+        InternalContent.addInternalPackContent(this);
 
     }
     public String getName(){
@@ -39,8 +41,8 @@ public class ResourcePack {
 
     public boolean copyFileFromDisk(String filePath, String pastePath) {
         try {
-            Path directory = fileSystem.getPath(pastePath);
-            Path path = Paths.get(filePath);
+            Path directory = fileSystem.getPath(pastePath); // gets path in virtual file system
+            Path path = Paths.get(filePath); // gets file from disk
             if (!Files.exists(path)){
                 return false;
 
@@ -58,6 +60,34 @@ public class ResourcePack {
             throw new RuntimeException(e);
 
         }
+    }
+
+    public boolean copyFileFromDisk(Path filePath, String pastePath) {
+        try {
+            Path directory = fileSystem.getPath(pastePath); // gets path in virtual file system
+            Path path = filePath; // gets file from disk
+            if (!Files.exists(path)){
+                return false;
+
+
+            }
+            if (!Files.exists(directory)) {
+                Files.createDirectories(directory);
+            }
+
+            Files.copy(path, directory, StandardCopyOption.REPLACE_EXISTING);
+
+            return true;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
+    public boolean copyFileFromPluginResources(String filePath, String pastePath) {
+        Path file = new File(Outmodedlib.getInstance().getDataFolder(), "contents/invisible.png").toPath();
+        return copyFileFromDisk(file, pastePath);
     }
 
     @ApiStatus.Internal

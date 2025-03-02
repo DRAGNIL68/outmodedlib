@@ -14,12 +14,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
+
 public class CustomItemStack {
     private final ItemStack itemStack; // vanilla item used
     private final String namespaceId; // I.e. test:cool_item
 
 
-    private String model; // test_namespace
+    private String model; // test_namespace:cool_model
 
     public CustomItemStack(Material material, String namespaceId) {
         itemStack = new ItemStack(material);
@@ -59,13 +61,16 @@ public class CustomItemStack {
         itemStack.setItemMeta(damageable);
         // needs looking into see:https://github.com/PluginBugs/Issues-ItemsAdder/issues/3536
     }
+    // setModel(namespace_cool, )
+    public void setModel(String namespacedModelDefPath){ // TODO: merge namespace with path
+        String namespace = splitNamespaceId(namespacedModelDefPath)[0];
+        String modelDefPath = splitNamespaceId(namespacedModelDefPath)[1];
 
-    public void setModel(String namespace, String modelDefPath){
         NamespacedKey modelKey = new NamespacedKey(namespace, modelDefPath);
         ItemMeta meta = itemStack.getItemMeta();
         meta.setItemModel(modelKey);
         itemStack.setItemMeta(meta);
-        model = namespace;
+        model = namespacedModelDefPath;
     }
 
     public String getModel(){
@@ -73,10 +78,10 @@ public class CustomItemStack {
     }
 
 
-    public void setMaxDurability(int maxDurabilty){
+    public void setMaxDurability(int maxDurability){
         ItemMeta meta = itemStack.getItemMeta();
         Damageable damageable = (Damageable) meta;
-        damageable.setMaxDamage(maxDurabilty);
+        damageable.setMaxDamage(maxDurability);
         itemStack.setItemMeta(damageable);
     }
 

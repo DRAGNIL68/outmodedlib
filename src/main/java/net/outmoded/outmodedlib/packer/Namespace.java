@@ -48,6 +48,14 @@ public class Namespace {
         return resourcePack.copyFileFromDisk(copyPath, namespacePath + pastePath);
     }
 
+    public boolean copyFileFromDisk(Path copyPath, String  pastePath) {
+        return resourcePack.copyFileFromDisk(copyPath, namespacePath + pastePath);
+    }
+
+    public boolean copyFileFromPluginResources(String filePath, String pastePath){
+        return resourcePack.copyFileFromPluginResources(filePath, namespacePath + pastePath);
+    }
+
     public boolean hasFile(String filePath){
         return resourcePack.hasFile(filePath);
     }

@@ -2,19 +2,25 @@ package net.outmoded.outmodedlib.packer.jsonObjects;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Paths;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Writable{
+public abstract class Writable{
 
     @JsonIgnore
-    private String filePath;
+    private String filePath; // the file path inside the virtual file system it will be written to
 
     @JsonIgnore
-    public Writable(String filePath){
-        this.filePath = filePath;
+    public String getNamespace() {
+        return namespace;
     }
+
+    @JsonIgnore
+    private String namespace; // the namespace so I can make my shitty system work with the namespace
+
+
 
     @JsonIgnore
     public String getFileName(){
@@ -23,7 +29,7 @@ public class Writable{
     }
 
     @JsonIgnore
-    public String getFilePath(){
+    public @NotNull String getFilePath(){
         return filePath;
 
     }
@@ -33,5 +39,9 @@ public class Writable{
         filePath = newFilePath;
 
     }
+
+
+    // namespace.writeJsonObject(someObject(lalal, custom_swords/sword1))
+    // pack.writeJsonObject(someObject(lalal, "namespace:custom_swords/sword1"))
 
 }

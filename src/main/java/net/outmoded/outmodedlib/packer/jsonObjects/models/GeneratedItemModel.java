@@ -5,6 +5,8 @@ import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
 import java.util.HashMap;
 import java.util.Map;
 
+import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
+
 public class GeneratedItemModel extends Writable {
 
     private String parent;
@@ -13,9 +15,24 @@ public class GeneratedItemModel extends Writable {
 
 
     @JsonIgnore
-    public GeneratedItemModel(String namespace, String texturePath, modelType modelType ,String writePath){
-        super(writePath);
-        textures.put("layer0", namespace + ":" + texturePath);
+    public GeneratedItemModel(String namespacedTexturePath, modelType modelType ,String namespacedWritePath){
+        String fullPath;
+        if (namespacedTexturePath.contains(":")){
+            fullPath = "assets/"+splitNamespaceId(namespacedWritePath)[0]+"/models/"+splitNamespaceId(namespacedWritePath)[1]+".json"; // test_namespace:frog_sword -> assets/test_namespace/items/frog_sword.json
+        }
+        else{
+
+            fullPath = "models/"+splitNamespaceId(namespacedWritePath)[1]+".json";
+
+        }
+
+
+
+
+
+        setFilePath(fullPath);
+
+        textures.put("layer0", namespacedTexturePath);
         parent = "item/" + modelType.toString();
     }
 
