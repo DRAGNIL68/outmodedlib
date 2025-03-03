@@ -2,6 +2,7 @@ package net.outmoded.outmodedlib.GUIcontainers;
 
 
 import net.outmoded.outmodedlib.items.ItemManager;
+import net.outmoded.outmodedlib.packer.PackerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -19,19 +20,20 @@ public abstract class CustomContainer {
 
     private String title;
     private String texture;
-    private int offset;
+    private int textureOffset;
     private Inventory inventory;
     private boolean[] disabledSlots = new boolean[54];
 
 
-    CustomContainer(String title, @NotNull Integer size, int offset, int[] disabledSlots ,String texture){
+
+    CustomContainer(String title, @NotNull Integer size, int textureOffset, int[] disabledSlots ,String texture){
         if (size > 54){
             size = 54;
         }
 
         this.title = title;
         this.texture = texture;
-        this.offset = offset;
+        this.textureOffset = textureOffset;
         inventory = Bukkit.createInventory(null, size, combinedTileAndTexture());
 
         for (int i = 0; i < inventory.getSize(); i++) {
@@ -62,7 +64,18 @@ public abstract class CustomContainer {
     }
 
     private String combinedTileAndTexture(){
-        return texture + title + offset;
+        Integer length = texture.length();
+        if (textureOffset != 0){
+            length++;
+
+        }
+
+        String titleOffset = PackerUtils.getNegativeOffsetCharFromInt(length);
+
+        String textureOffset = PackerUtils.getNegativeOffsetCharFromInt(this.textureOffset);
+
+
+        return textureOffset + texture + titleOffset + title;
     }
 
     public @NotNull Inventory getInventory(){
@@ -90,7 +103,7 @@ public abstract class CustomContainer {
         return texture;
     }
 
-    public int getOffset() {
-        return offset;
+    public int getTextureOffset() {
+        return textureOffset;
     }
 }

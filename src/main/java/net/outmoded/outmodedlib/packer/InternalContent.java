@@ -13,7 +13,7 @@ public class InternalContent {
         resourcePack.copyFileFromPluginResources("pack/invisible.png", "assets/outmodedlib/textures/items/invisible.png");
 
         GeneratedItemModel generatedItemModel = new GeneratedItemModel("outmodedlib:items/invisible", GeneratedItemModel.modelType.generated, "outmodedlib:invisible");
-        ItemModelDefinition itemModelDefinition = new ItemModelDefinition("outmoded:invisible", "outmodedlib:invisible" );
+        ItemModelDefinition itemModelDefinition = new ItemModelDefinition("outmodedlib:invisible", "outmodedlib:invisible" );
 
         resourcePack.writeJsonObject(generatedItemModel);
         resourcePack.writeJsonObject(itemModelDefinition);
