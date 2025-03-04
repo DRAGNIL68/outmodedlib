@@ -22,6 +22,9 @@ public class Namespace {
         resourcePack.registerNamespace(this);
     }
 
+    public Path getPath(String path){
+        return resourcePack.getPath(namespacePath + path);
+    }
 
     public String getNamespacePathAsString() {
         return namespacePath;

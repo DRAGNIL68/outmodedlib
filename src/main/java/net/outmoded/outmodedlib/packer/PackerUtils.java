@@ -13,8 +13,8 @@ public abstract class PackerUtils {
     public static String getNegativeOffsetCharFromInt(Integer offset){ // TODO: implement this. will probably use AmberWat's negative spacing pack
         return "offset";
     }
-    public static String getUnicodeCharFromInt(int integer){
-        return Character.toString((char)integer);
+    public static char getUnicodeCharFromInt(int integer){
+        return (char)integer;
     }
 
     public static String textureToBase64(String filePath){

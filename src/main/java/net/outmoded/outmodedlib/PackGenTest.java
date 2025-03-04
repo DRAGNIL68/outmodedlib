@@ -2,9 +2,13 @@ package net.outmoded.outmodedlib;
 
 import net.outmoded.outmodedlib.packer.Namespace;
 import net.outmoded.outmodedlib.packer.ResourcePack;
+import net.outmoded.outmodedlib.packer.TextureSize;
 import net.outmoded.outmodedlib.packer.UnicodeRegister;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemModelDefinition;
 import net.outmoded.outmodedlib.packer.jsonObjects.McMeta;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 public class PackGenTest {
     public static void runPack() {
@@ -20,11 +24,16 @@ public class PackGenTest {
         //animatedSkript.writeJsonObject(new ItemModelDefinition("animated-skript", "katana"));
 
         UnicodeRegister unicodeRegister = new UnicodeRegister();
-        unicodeRegister.addUnicodeChar(UnicodeRegister.unicodeType.BITMAP, 2, 2, "test_pack:font/frog.png");
-
+        unicodeRegister.addUnicodeChar(UnicodeRegister.UnicodeType.BITMAP, 2, 2, "test_pack:font/frog.png");
+        unicodeRegister.addUnicodeCharSpriteSheet(UnicodeRegister.UnicodeType.BITMAP, 2, 2, "test_pack:font/frog.png", new TextureSize(32, 32), new TextureSize(32, 32));
+        //unicodeRegister.addUnicodeChar(UnicodeRegister.unicodeType.BITMAP, 2, 2, "test_pack:font/frog.png", "16x16");
+        //unicodeRegister.addUnicodeChar(UnicodeRegister.unicodeType.BITMAP, 2, 2, "test_pack:font/frog.png", 16, 16);
+        //unicodeRegister.addUnicodeChar(UnicodeRegister.unicodeType.BITMAP, 2, 2, "test_pack:font/frog.png", new textureSize(16, 16);
+        //unicodeRegister.addUnicodeChar(UnicodeRegister.unicodeType.BITMAP, 2, 2, "test_pack:font/frog.png", new textureSize(16, 16), new textureSize(16, 16);
         resourcePack.writeJsonObject(unicodeRegister);
         //resourcePack.base64ToTexture("assets/frog.png", "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAORJREFUeF7t1sERwzAMA0GputSc6pRxDfcQndn8YdMEgctea5317t8u4z9iCygbHKB1AcUEEdABShAFYLC06AAtDBYTYBAGYRAGYbC06AAtDBYTYBAGYRAGYbC06AAtDBYTYBAGYRAGYbC06AAtDBYTJmAwOVg+/tFawID/AS6gnnHRi4AIlPv5A+3VApqwPwuY4MLNGVzAze1PeLcLmOBCmeGc8yn611+ABbz5ArJ7e3/zM0p+qjYPbwEuQARyjGqOiz4PrwN0gA7IMSoZrto8vA7QATogx6jmuOjz8DpAB+QO+AGBF6RNi0nBcwAAAABJRU5ErkJggg==");
         resourcePack.build("plugins/" + resourcePack.getName() + ".zip"); // <- generates zip
+
     }
 
 }

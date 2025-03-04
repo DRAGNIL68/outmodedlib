@@ -26,7 +26,7 @@ public abstract class CustomContainer {
 
 
 
-    CustomContainer(String title, @NotNull Integer size, int textureOffset, int[] disabledSlots ,String texture){
+    public CustomContainer(String title, @NotNull Integer size, int textureOffset, int[] disabledSlots ,String texture){
         if (size > 54){
             size = 54;
         }
@@ -64,7 +64,7 @@ public abstract class CustomContainer {
     }
 
     private String combinedTileAndTexture(){
-        Integer length = texture.length();
+        Integer length = 1;
         if (textureOffset != 0){
             length++;
 

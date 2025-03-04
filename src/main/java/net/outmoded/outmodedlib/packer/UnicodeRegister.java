@@ -11,7 +11,7 @@ public class UnicodeRegister extends Writable {
 
     @JsonIgnore
     private int currentUnicodeValue = 0xF0000;
-
+    private ResourcePack resourcePack;
 
 
     @JsonIgnore
@@ -22,22 +22,64 @@ public class UnicodeRegister extends Writable {
 
     //UnicodeProvider(String type, String unicodeChar, int ascent, int height, String file
     @JsonIgnore
-    public char addUnicodeChar(unicodeType type, int ascent, int height, String namespacedTexturePath){
+    public char addUnicodeChar(UnicodeType type, int ascent, int height, String namespacedTexturePath){
         if (currentUnicodeValue > 0xFFFFD){
             throw new RuntimeException("exceeded maximum unicode character limit (65,534)"); // this will never be exceeded lmao
 
         }
-        String s = Character.toString((char)currentUnicodeValue); // converts a hex value to a string
+         // converts a hex value to a string
+        ArrayList<String> chars = new ArrayList<String>();
+        chars.add(String.valueOf((char)currentUnicodeValue));
+
 
         char unicode = (char) currentUnicodeValue; // copy of Unicode as char
-        UnicodeProvider unicodeProvider = new UnicodeProvider(type.toString().toLowerCase(), s, ascent, height, namespacedTexturePath); // add a new provider (pack witchcraft)
+        UnicodeProvider unicodeProvider = new UnicodeProvider(type.toString().toLowerCase(), chars, ascent, height, namespacedTexturePath); // add a new provider (pack witchcraft)
 
         currentUnicodeValue++; // add 1 to the Unicode value
         providers.add(unicodeProvider);
         return unicode;
     }
 
-    public enum unicodeType {
+    //UnicodeProvider(String type, String unicodeChar, int ascent, int height, String file
+    @JsonIgnore
+    public char addUnicodeCharSpriteSheet(UnicodeType type, int ascent, int height, String namespacedTexturePath, TextureSize spriteSheetSize , TextureSize spriteSheetGridSize){ // must be dividable by 2
+
+        if (currentUnicodeValue > 0xFFFFD){
+            throw new RuntimeException("exceeded maximum unicode character limit (65,534)"); // this will never be exceeded lmao
+
+        }
+        // converts a hex value to a string
+
+        ArrayList<String> chars = new ArrayList<String>();
+
+        int w = spriteSheetSize.width / spriteSheetGridSize.width;
+        int h = spriteSheetSize.height / spriteSheetGridSize.width;
+
+
+        for (int x = 0; x < w; x++) {
+            String rowOfChars = "";
+
+            for (int y = 0; y < h; y++) {
+                rowOfChars = rowOfChars.concat(String.valueOf((char)currentUnicodeValue));
+                currentUnicodeValue++;
+            }
+
+            chars.add(rowOfChars);
+        }
+
+
+
+
+
+        char unicode = (char) currentUnicodeValue; // copy of Unicode as char
+        UnicodeProvider unicodeProvider = new UnicodeProvider(type.toString().toLowerCase(), chars, ascent, height, namespacedTexturePath); // add a new provider (pack witchcraft)
+
+         // add 1 to the Unicode value
+        providers.add(unicodeProvider);
+        return unicode;
+    }
+
+    public enum UnicodeType {
         BITMAP
     }
 

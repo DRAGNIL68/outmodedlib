@@ -180,6 +180,19 @@ public class ResourcePack {
         return Files.exists(directory);
     }
 
+    public Path getPath(String path){
+        if (path == null)
+            return null;
+
+
+        Path directory = fileSystem.getPath(path);
+
+        return directory;
+
+    }
+
+
+
     public void writeJsonObject(Writable object){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
