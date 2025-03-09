@@ -12,11 +12,6 @@ public class ItemManager {
     private final static Map<String, CustomItemStack> itemRegistry = new HashMap<>(); // probably a better idea for this to store a hashmap per namespace :TODO do this <--
 
 
-    private ItemManager(){
-
-
-    }
-
 
     public static void registerCustomItemStack(CustomItemStack customItemStack){
             if (!itemRegistry.containsKey(customItemStack.getNamespaceId())) {
@@ -84,7 +79,7 @@ public class ItemManager {
 
     }
 
-    public static String getCustomItemStackNamespace(ItemStack itemStack) {
+    public static String getCustomItemStackNamespaceId(ItemStack itemStack) {
         try {
             String namespaceId = NBT.get(itemStack, nbt -> (String) nbt.getString("outmodedlib_namespaceId"));
             if (namespaceId == null) {

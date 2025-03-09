@@ -23,7 +23,7 @@ public class PackGenTest {
         //animatedSkript.copyFileFromDisk("plugins/packtest/katana.png", "textures/item/katana.png");
         //animatedSkript.writeJsonObject(new ItemModelDefinition("animated-skript", "katana"));
 
-        UnicodeRegister unicodeRegister = new UnicodeRegister();
+        UnicodeRegister unicodeRegister = new UnicodeRegister(200);
         unicodeRegister.addUnicodeChar(UnicodeRegister.UnicodeType.BITMAP, 2, 2, "test_pack:font/frog.png");
         unicodeRegister.addUnicodeCharSpriteSheet(UnicodeRegister.UnicodeType.BITMAP, 2, 2, "test_pack:font/frog.png", new TextureSize(32, 32), new TextureSize(32, 32));
         //unicodeRegister.addUnicodeChar(UnicodeRegister.unicodeType.BITMAP, 2, 2, "test_pack:font/frog.png", "16x16");
