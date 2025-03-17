@@ -1,14 +1,9 @@
 package net.outmoded.outmodedlib;
 
-import net.outmoded.outmodedlib.packer.Namespace;
 import net.outmoded.outmodedlib.packer.ResourcePack;
 import net.outmoded.outmodedlib.packer.TextureSize;
 import net.outmoded.outmodedlib.packer.UnicodeRegister;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemModelDefinition;
 import net.outmoded.outmodedlib.packer.jsonObjects.McMeta;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 
 public class PackGenTest {
     public static void runPack() {

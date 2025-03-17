@@ -23,7 +23,6 @@ import static org.bukkit.Bukkit.getServer;
 
 public class ResourcePack {
     FileSystem fileSystem;
-    private final Map<String, Namespace> namespaces = new HashMap<>();
     private final String name;
 
     public ResourcePack(String name){
@@ -85,16 +84,6 @@ public class ResourcePack {
         }
     }
 
-    public boolean copyFileFromPluginResources(String filePath, String pastePath) {
-        Path file = new File(Outmodedlib.getInstance().getDataFolder(), "contents/invisible.png").toPath();
-        return copyFileFromDisk(file, pastePath);
-    }
-
-    @ApiStatus.Internal
-    public void registerNamespace(Namespace namespace){ // registers texture packs so I can keep track on namespaces
-        namespaces.put(namespace.getNamespaceKey(), namespace);
-
-    }
 
     public boolean createPath(String path){
         try {
@@ -157,23 +146,6 @@ public class ResourcePack {
         }
     }
 
-
-    public boolean namespaceExists(String namespace){
-        if (namespaces.containsKey(namespace))
-            return true;
-        else{
-            return false;
-        }
-
-    }
-
-    public Namespace getNamespace(String namespace){
-        if (namespaces.containsKey(namespace))
-            return namespaces.get(namespace);
-
-        return null;
-
-    }
 
     public boolean hasFile(String filePath){
         Path directory = fileSystem.getPath(filePath);

@@ -8,16 +8,16 @@ import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 public class ItemModelDefinition extends Writable {
     private final Map<String, Object> model = new HashMap<>();
 
-    public ItemModelDefinition(String namespacedPathToModel, String namespacedWritePath){
+    public ItemModelDefinition(String namespacedPathToModel, String namespacedWritePathOfModelDef){
         // test_namespace:frog_sword -> assets/test_namespace/items/frog_sword.json
         String fullPath;
 
         if (namespacedPathToModel.contains(":")){
-            fullPath = "assets/"+splitNamespaceId(namespacedWritePath)[0]+"/items/"+splitNamespaceId(namespacedWritePath)[1]+".json"; // test_namespace:frog_sword -> assets/test_namespace/items/frog_sword.json
+            fullPath = "assets/"+splitNamespaceId(namespacedWritePathOfModelDef)[0]+"/items/"+splitNamespaceId(namespacedWritePathOfModelDef)[1]+".json"; // test_namespace:frog_sword -> assets/test_namespace/items/frog_sword.json
         }
         else{
 
-            fullPath = "items/"+splitNamespaceId(namespacedWritePath)[1]+".json";
+            throw new RuntimeException("you must provide a namespace in the path to model");
 
         }
 

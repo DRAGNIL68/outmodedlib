@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +36,6 @@ public abstract class CustomContainer {
         this.texture = texture;
         this.textureOffset = textureOffset;
         inventory = Bukkit.createInventory(null, size, combinedTileAndTexture());
-
         for (int i = 0; i < inventory.getSize(); i++) {
             this.disabledSlots[i] = false;
         }

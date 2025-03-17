@@ -54,15 +54,15 @@ public class CustomItemStack {
         return null;
     }
 
-    public void setDurability(int durablity){
+    public void setDamage(int damage){ // sets damage I.e. max durability is 500 if you use set damage(300) the items durability will be 200
         ItemMeta meta = itemStack.getItemMeta();
         Damageable damageable = (Damageable) meta;
-        damageable.setDamage(durablity);
+        damageable.setDamage(damage);
         itemStack.setItemMeta(damageable);
         // needs looking into see:https://github.com/PluginBugs/Issues-ItemsAdder/issues/3536
     }
-    // setModel(namespace_cool, )
-    public void setModel(String namespacedModelDefPath){ // TODO: merge namespace with path
+
+    public void setModel(String namespacedModelDefPath){ // sets the custom model of this item I.e. setModel("namespace:test_item")
         String namespace = splitNamespaceId(namespacedModelDefPath)[0];
         String modelDefPath = splitNamespaceId(namespacedModelDefPath)[1];
 
@@ -122,7 +122,7 @@ public class CustomItemStack {
 
     public void setAttribute(Attribute attribute,AttributeModifier.Operation operation, Double value){
         ItemMeta meta = itemStack.getItemMeta();
-        NamespacedKey key = new NamespacedKey("outmodedlib", "attack_speed");
+        NamespacedKey key = new NamespacedKey("something", "attack_speed");
         Multimap<Attribute, AttributeModifier> modifiers = meta.getAttributeModifiers();
         AttributeModifier attributeModifier = new AttributeModifier(key, value, operation);
         meta.addAttributeModifier(attribute, attributeModifier);
