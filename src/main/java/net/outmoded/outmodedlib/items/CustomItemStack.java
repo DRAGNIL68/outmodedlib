@@ -1,18 +1,32 @@
 package net.outmoded.outmodedlib.items;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import de.tr7zw.changeme.nbtapi.NBT;
+import io.papermc.paper.datacomponent.DataComponentType;
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.CustomModelData;
+import io.papermc.paper.datacomponent.item.Repairable;
+import io.papermc.paper.registry.RegistryKey;
+import io.papermc.paper.registry.TypedKey;
+import io.papermc.paper.registry.set.RegistryKeySet;
+import io.papermc.paper.registry.set.RegistrySet;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.DataComponentValue;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.outmoded.outmodedlib.Outmodedlib;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attributable;
+import org.bukkit.Registry;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
+
+import java.util.UUID;
 
 import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 
@@ -25,17 +39,40 @@ public class CustomItemStack {
 
     public CustomItemStack(Material material, String namespaceId) {
         itemStack = new ItemStack(material);
+
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
+        itemStack.unsetData(DataComponentTypes.REPAIR_COST);
+        itemStack.unsetData(DataComponentTypes.TOOL);
+        itemStack.unsetData(DataComponentTypes.CONSUMABLE);
+        itemStack.unsetData(DataComponentTypes.EQUIPPABLE);
+        itemStack.unsetData(DataComponentTypes.LORE);
+
         itemStack.getItemMeta();
         if (namespaceId.indexOf(":") != namespaceId.lastIndexOf(":")){
             throw new RuntimeException("Cannot use ':' in item namespaceId except for separating namespace and id");
         }
         this.namespaceId = namespaceId;
 
-        NBT.modify(itemStack, nbt -> {
-            nbt.setString("outmodedlib_namespaceId", namespaceId);
+        NamespacedKey namespacedId = new NamespacedKey(Outmodedlib.getInstance(), "namespacedId");
+        itemStack.editMeta(meta -> {
+            meta.getPersistentDataContainer().set(namespacedId, PersistentDataType.STRING, namespaceId);
         });
+
         ItemMeta meta = itemStack.getItemMeta();
-        meta.setAttributeModifiers(null);
+
+        Multimap<Attribute, AttributeModifier> modifiers = ArrayListMultimap.create();
+        meta.setAttributeModifiers(modifiers); // removes attributes of vanilla item
+        itemStack.setItemMeta(meta);
+    }
+
+
+    public void setStackSize(int stackSize){
+        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, stackSize);
+
+    }
+
+    public int getStackSize(){
+        return itemStack.getMaxStackSize();
     }
 
     public void setName(String itemName){
@@ -120,11 +157,11 @@ public class CustomItemStack {
         return customItemStack;
     }
 
-    public void setAttribute(Attribute attribute,AttributeModifier.Operation operation, Double value){
+    public void addAttribute(Attribute attribute, AttributeModifier.Operation operation, EquipmentSlotGroup equipmentSlot, Double value){ // adds a attribute
         ItemMeta meta = itemStack.getItemMeta();
-        NamespacedKey key = new NamespacedKey("something", "attack_speed");
+        NamespacedKey key = new NamespacedKey(Outmodedlib.getInstance(), "attack_speed");
         Multimap<Attribute, AttributeModifier> modifiers = meta.getAttributeModifiers();
-        AttributeModifier attributeModifier = new AttributeModifier(key, value, operation);
+        AttributeModifier attributeModifier = new AttributeModifier(key, value, operation, equipmentSlot);
         meta.addAttributeModifier(attribute, attributeModifier);
 
         if (modifiers != null){
@@ -136,5 +173,28 @@ public class CustomItemStack {
         }
         itemStack.setItemMeta(meta);
     }
+
+    public void setAttribute(Attribute attribute, AttributeModifier.Operation operation, EquipmentSlotGroup equipmentSlot, Double value){ // sets an attribute and removes the existing one
+        ItemMeta meta = itemStack.getItemMeta();
+        NamespacedKey key = new NamespacedKey(Outmodedlib.getInstance(), "attack_speed");
+        Multimap<Attribute, AttributeModifier> modifiers = meta.getAttributeModifiers();
+        AttributeModifier attributeModifier = new AttributeModifier(key, value, operation, equipmentSlot);
+
+        if (modifiers != null){
+
+
+            for (AttributeModifier modifier : modifiers.get(attribute)) {
+                meta.addAttributeModifier(attribute, attributeModifier);
+            }
+        }
+
+        if (meta.hasAttributeModifiers()) {
+            meta.removeAttributeModifier(attribute);
+        }
+
+        meta.addAttributeModifier(attribute, attributeModifier);
+        itemStack.setItemMeta(meta);
+    }
+
 
 }

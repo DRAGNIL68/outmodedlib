@@ -2,6 +2,8 @@ package net.outmoded.outmodedlib;
 
 import de.tr7zw.changeme.nbtapi.NBT;
 import net.outmoded.outmodedlib.GUIcontainers.ContainerListener;
+import net.outmoded.outmodedlib.items.listener.VanillaAnvilPrevention;
+import net.outmoded.outmodedlib.items.listener.VanillaCraftingPrevention;
 import net.outmoded.outmodedlib.packer.InternalContent;
 import net.outmoded.outmodedlib.particles.ParticleManager;
 import org.bukkit.Bukkit;
@@ -11,8 +13,6 @@ import java.nio.file.Path;
 
 
 public final class Outmodedlib extends JavaPlugin {
-
-
 
     @Override
     public void onEnable() {
@@ -26,14 +26,18 @@ public final class Outmodedlib extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(version);
         NBT.preloadApi(); // load nbt-api
         Bukkit.getPluginManager().registerEvents(new ContainerListener(), this); // custom gui listener
+
+        Bukkit.getPluginManager().registerEvents(new VanillaCraftingPrevention(), this); // crafting listener
+
+        Bukkit.getPluginManager().registerEvents(new VanillaAnvilPrevention(), this); // anvil listener
         PackGenTest.runPack();
         InternalContent.registerInternalCustomContent();
 
 
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
             public void run(){
-                ParticleManager.tickEmitters();
-                ParticleManager.tickParticles();
+                ParticleManager.getInstance().tickEmitters();
+                ParticleManager.getInstance().tickParticles();
             }
         }, 20, 1L);
 

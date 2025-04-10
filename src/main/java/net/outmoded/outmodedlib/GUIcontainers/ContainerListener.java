@@ -12,22 +12,22 @@ public class ContainerListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
-        ContainerManager.handleClick(event);
+        ContainerManager.getInstance().handleClick(event);
 
     }
 
     @EventHandler
     public void onOpen(InventoryOpenEvent event){
-        ContainerManager.handleOpen(event);
+        ContainerManager.getInstance().handleOpen(event);
     }
 
     @EventHandler
     public void onClose(InventoryCloseEvent event){
-        ContainerManager.handleClose(event);
+        ContainerManager.getInstance().handleClose(event);
     }
 
     @EventHandler
     public void onDrag(InventoryDragEvent event){
-        ContainerManager.handleDrag(event);
+        ContainerManager.getInstance().handleDrag(event);
     }
 }

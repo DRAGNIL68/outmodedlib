@@ -32,7 +32,7 @@ public class GeneratedItemModel extends Writable {
 
         setFilePath(fullPath);
 
-        textures.put("layer0", namespacedTexturePath);
+        textures.put("layer0", splitNamespaceId(namespacedTexturePath)[0]+":item/"+splitNamespaceId(namespacedTexturePath)[1]);
         parent = "item/" + modelType.toString();
     }
 

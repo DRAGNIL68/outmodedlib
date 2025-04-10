@@ -4,8 +4,7 @@ package net.outmoded.outmodedlib.GUIcontainers;
 import net.outmoded.outmodedlib.items.ItemManager;
 import net.outmoded.outmodedlib.packer.PackerUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -13,7 +12,6 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class CustomContainer {
@@ -45,7 +43,7 @@ public abstract class CustomContainer {
         }
         else{
 
-            ItemStack customItem = ItemManager.getCustomItemStack("outmodedlib:invisible_placeholder").asItemStack();
+            ItemStack customItem = ItemManager.getInstance().getCustomItemStack("outmodedlib:invisible_placeholder").asItemStack();
             for (int slot : disabledSlots) {
                 if (slot <= inventory.getSize()){
                     this.disabledSlots[slot] = true;
@@ -82,13 +80,13 @@ public abstract class CustomContainer {
         return inventory;
     };
 
-    void onClick(InventoryClickEvent event){};
+    public void onClick(InventoryClickEvent event){};
 
-    void onOpen(InventoryOpenEvent event){};
+    public void onOpen(InventoryOpenEvent event){};
 
-    void onClose(InventoryCloseEvent event){};
+    public void onClose(InventoryCloseEvent event){};
 
-    void onDrag(InventoryDragEvent event){};
+    public void onDrag(InventoryDragEvent event){};
 
 
     boolean[] getDisabledSlots(){
@@ -106,4 +104,5 @@ public abstract class CustomContainer {
     public int getTextureOffset() {
         return textureOffset;
     }
+
 }

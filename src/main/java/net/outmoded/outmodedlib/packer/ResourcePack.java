@@ -5,25 +5,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
-import net.outmoded.outmodedlib.Outmodedlib;
 import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
 import org.bukkit.ChatColor;
-import org.jetbrains.annotations.ApiStatus;
-
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.apache.logging.log4j.LogManager.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
 public class ResourcePack {
     FileSystem fileSystem;
     private final String name;
+    private boolean debugMode = false;
 
     public ResourcePack(String name){
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
@@ -36,6 +31,10 @@ public class ResourcePack {
     public String getName(){
         return name;
 
+    }
+
+    public FileSystem getFileSystem(){
+        return fileSystem;
     }
 
     public boolean copyFileFromDisk(String filePath, String pastePath) {
@@ -57,6 +56,28 @@ public class ResourcePack {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+
+        }
+    }
+
+    public boolean copyFileFromResources(InputStream inputStream, String pastePath) { // use something like this as input: InputStream inputStream = MyPlugin.getInstance().getResource("plugin.yml");
+        try {
+
+            Path directory = fileSystem.getPath(pastePath); // gets path in virtual file system
+            if (inputStream == null){
+                return false;
+            }
+
+            if (!Files.exists(directory)) {
+                Files.createDirectories(directory);
+            }
+
+            Files.copy(inputStream, directory, StandardCopyOption.REPLACE_EXISTING);
+
+            return true;
+
+        } catch (IOException e) {
+            throw new RuntimeException("failed to copy file from resources");
 
         }
     }
@@ -107,8 +128,6 @@ public class ResourcePack {
             String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
 
             Path directory = fileSystem.getPath(filePath);
-
-            getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "frog: " + directory.getFileName().toString() + " : " + directory.getParent());
 
             if (directory.getParent() != null) {
                 Files.createDirectories(directory.getParent());
@@ -165,7 +184,7 @@ public class ResourcePack {
 
 
 
-    public void writeJsonObject(Writable object){
+    public ResourcePack writeJsonObject(Writable object){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             createGenericFile(object.getFilePath(), objectMapper.writeValueAsString(object));
@@ -176,23 +195,32 @@ public class ResourcePack {
             throw new RuntimeException(e);
         }
 
-
+        return this;
     }
 
     public void build(String outputFilePath) {
         try {
-            ZipFileUtil zipFileUtil = new ZipFileUtil(outputFilePath, fileSystem);
+            ZipFileUtil zipFileUtil = new ZipFileUtil(outputFilePath, this);
             zipFileUtil.addToZip("");
             //zipFileTest.addToZip("pack.mcmeta");
             if (!hasFile("pack.mcmeta")){
                 throw new RuntimeException("Resource pack dose not have pack.mcmeta!");
             };
             zipFileUtil.endZip();
+            fileSystem.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
 
+    }
+
+    public void setDebugMode(boolean debugMode){
+        this.debugMode = debugMode;
+    }
+
+    public boolean getDebugMode(){
+        return debugMode;
     }
 
 

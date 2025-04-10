@@ -1,5 +1,6 @@
 package net.outmoded.outmodedlib.GUIcontainers;
 
+import net.outmoded.outmodedlib.items.ItemManager;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -10,21 +11,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ContainerManager {
-    private final static Map<Inventory, CustomContainer> loadedContainers = new HashMap<>();
+    private final  Map<Inventory, CustomContainer> loadedContainers = new HashMap<>();
+    private static ContainerManager containerManagerInstance;
     private ContainerManager(){
 
     }
 
-    public static void registerHandledContainer(Inventory container, CustomContainer customContainer){
+    public static ContainerManager getInstance() {
+        if (containerManagerInstance == null) {
+            containerManagerInstance = new ContainerManager();
+        }
+        return containerManagerInstance;
+    }
+
+    public void registerHandledContainer(Inventory container, CustomContainer customContainer){
         loadedContainers.put(container, customContainer);
 
     }
 
-    public static void unregisterHandledContainer(Inventory container) {
+    public void unregisterHandledContainer(Inventory container) {
         loadedContainers.remove(container);
     }
 
-    public static void handleClick(InventoryClickEvent event){
+    public void handleClick(InventoryClickEvent event){
         CustomContainer customContainer = loadedContainers.get(event.getInventory());
 
         if (customContainer != null) {
@@ -39,14 +48,14 @@ public class ContainerManager {
         }
     }
 
-    public static void handleOpen(InventoryOpenEvent event){
+    public void handleOpen(InventoryOpenEvent event){
         CustomContainer customContainer = loadedContainers.get(event.getInventory());
         if (customContainer != null) {
             customContainer.onOpen(event);
         }
     }
 
-    public static void handleClose(InventoryCloseEvent event){
+    public void handleClose(InventoryCloseEvent event){
         CustomContainer customContainer = loadedContainers.get(event.getInventory());
         if (customContainer != null) {
             customContainer.onClose(event);
@@ -54,7 +63,7 @@ public class ContainerManager {
         unregisterHandledContainer(event.getInventory());
     }
 
-    public static void handleDrag(InventoryDragEvent event){
+    public void handleDrag(InventoryDragEvent event){
         CustomContainer customContainer = loadedContainers.get(event.getInventory());
         if (customContainer != null) {
             customContainer.onDrag(event);

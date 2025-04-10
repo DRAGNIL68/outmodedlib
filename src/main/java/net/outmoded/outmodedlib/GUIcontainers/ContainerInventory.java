@@ -15,7 +15,7 @@ public class ContainerInventory extends CustomContainer{
 
 
     @Override
-    void onClick(InventoryClickEvent event){
+    public void onClick(InventoryClickEvent event){
 
 
     }
