@@ -75,8 +75,13 @@ public class ItemManager {
         return itemRegistry.containsKey(namespaceId);
     }
 
-    public String[] getAllCustomItems(){
+    public String[] getAllCustomItemStacksNamespacedIds(){
         return itemRegistry.keySet().toArray(String[]::new);
+
+    }
+
+    public CustomItemStack[] getAllCustomItemStacks(){
+        return itemRegistry.values().toArray(CustomItemStack[]::new);
 
     }
 

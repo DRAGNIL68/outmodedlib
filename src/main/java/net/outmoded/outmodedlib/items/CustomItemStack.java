@@ -4,12 +4,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import io.papermc.paper.datacomponent.DataComponentType;
 import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.CustomModelData;
-import io.papermc.paper.datacomponent.item.Repairable;
-import io.papermc.paper.registry.RegistryKey;
-import io.papermc.paper.registry.TypedKey;
-import io.papermc.paper.registry.set.RegistryKeySet;
-import io.papermc.paper.registry.set.RegistrySet;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.DataComponentValue;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -20,13 +14,13 @@ import org.bukkit.Registry;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlotGroup;
+import org.bukkit.inventory.ItemRarity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.UUID;
 
 import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 
@@ -69,6 +63,12 @@ public class CustomItemStack {
     public void setStackSize(int stackSize){
         itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, stackSize);
 
+    }
+
+    public void setRarity(ItemRarity rarity){
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setRarity(rarity);
+        itemStack.setItemMeta(itemMeta);
     }
 
     public int getStackSize(){
