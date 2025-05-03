@@ -4,7 +4,7 @@
   <groupId>net.outmoded</groupId>
   <artifactId>outmodedlib</artifactId>
   <name>outmodedlib</name>
-  <version>1.0-alpha</version>
+  <version>v1</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>

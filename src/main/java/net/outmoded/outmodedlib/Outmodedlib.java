@@ -34,7 +34,8 @@ public final class Outmodedlib extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new VanillaSmithingPrevention(), this); // smithing listener
         Bukkit.getPluginManager().registerEvents(new VanillaCampfirePrevention(), this); // campfire listener
 
-        PackGenTest.runPack();
+
+
         InternalContent.registerInternalCustomContent();
 
 

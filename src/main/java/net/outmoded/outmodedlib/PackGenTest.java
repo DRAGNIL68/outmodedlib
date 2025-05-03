@@ -12,7 +12,7 @@ import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectPropert
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.SelectModelTypeProperties;
 import net.outmoded.outmodedlib.packer.jsonObjects.McMeta;
 
-public class PackGenTest {
+public class PackGenTest { // an example for generating a pack
     public static void runPack() {
         ResourcePack resourcePack = new ResourcePack("test_pack"); // <- create new resourcePack
         resourcePack.writeJsonObject(new McMeta("frogs", 42)); // <- creates pack.mcmeta

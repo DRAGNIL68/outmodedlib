@@ -11,7 +11,7 @@ import java.util.Map;
 import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BaseItemModelDefinition extends Writable {
+public abstract class BaseItemModelDefinition extends Writable {
     @JsonProperty("model")
     protected final Map<String, Object> baseProperties = new HashMap<>();
 
@@ -40,9 +40,6 @@ public class BaseItemModelDefinition extends Writable {
         baseProperties.put("fallback", modelDefinition.getHashmap());
     }
 
-    private BaseItemModelDefinition(){
-
-    }
 
 
 

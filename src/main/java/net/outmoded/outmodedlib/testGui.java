@@ -2,7 +2,7 @@ package net.outmoded.outmodedlib;
 
 import net.outmoded.outmodedlib.GUIcontainers.CustomContainer;
 
-public class testGui extends CustomContainer {
+public class testGui extends CustomContainer { // test gui for testing
 
 
     testGui(){
