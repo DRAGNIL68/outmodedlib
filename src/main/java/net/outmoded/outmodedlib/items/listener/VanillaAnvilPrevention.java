@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack;
 public class VanillaAnvilPrevention implements Listener {
 
 
-    @EventHandler(priority = EventPriority.LOW)
-    public void onPrepareAnvilEvent(PrepareAnvilEvent event) {
+    @EventHandler(priority = EventPriority.LOW) // set low to allow other plugins to still make custom anvil recipe
+    public void onPrepareAnvilEvent(PrepareAnvilEvent event) { // this code is dead simple because anvils have not recipes
         ItemStack itemStack1 = event.getInventory().getFirstItem();
         ItemStack itemStack2 = event.getInventory().getSecondItem();
 
@@ -22,7 +22,7 @@ public class VanillaAnvilPrevention implements Listener {
 
         if (event.getResult() != null) {
             if (ItemManager.getInstance().isCustomItemStack(itemStack1) || ItemManager.getInstance().isCustomItemStack(itemStack2)) {
-                if (itemStack2.getType() == Material.ENCHANTED_BOOK){
+                if (itemStack2.getType() == Material.ENCHANTED_BOOK){ // this line is here to allow custom items that can be chanted to be enchanted
                     return;
                 }
                 event.setResult(null);

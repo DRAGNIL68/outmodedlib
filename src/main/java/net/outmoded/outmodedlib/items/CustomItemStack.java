@@ -22,6 +22,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 
 public class CustomItemStack {
@@ -34,12 +37,20 @@ public class CustomItemStack {
     public CustomItemStack(Material material, String namespaceId) {
         itemStack = new ItemStack(material);
 
-        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
-        itemStack.unsetData(DataComponentTypes.REPAIR_COST);
-        itemStack.unsetData(DataComponentTypes.TOOL);
-        itemStack.unsetData(DataComponentTypes.CONSUMABLE);
-        itemStack.unsetData(DataComponentTypes.EQUIPPABLE);
-        itemStack.unsetData(DataComponentTypes.LORE);
+        for (Field field : DataComponentTypes.class.getDeclaredFields()) {
+            if (Modifier.isStatic(field.getModifiers())){
+                Object value = null;
+                try {
+                    value = field.get(null);
+
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+
+                itemStack.unsetData((DataComponentType) value);
+            }
+
+        }
 
         itemStack.getItemMeta();
         if (namespaceId.indexOf(":") != namespaceId.lastIndexOf(":")){

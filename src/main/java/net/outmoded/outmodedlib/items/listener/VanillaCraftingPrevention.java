@@ -4,6 +4,7 @@ import net.outmoded.outmodedlib.items.ItemManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.*;
@@ -18,7 +19,7 @@ import static org.bukkit.Bukkit.getServer;
 
 public class VanillaCraftingPrevention implements Listener { // prevents custom items from being used in vanilla crafting recipes
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onPrepareItemCraft(PrepareItemCraftEvent event) {
 
         ItemStack[] matrixOnTable = event.getInventory().getMatrix();
