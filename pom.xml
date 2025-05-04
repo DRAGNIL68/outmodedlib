@@ -6,7 +6,7 @@
 
   <groupId>net.outmoded</groupId>
   <artifactId>outmodedlib</artifactId>
-  <version>v1</version>
+  <version>v1.1</version>
   <packaging>jar</packaging>
 
   <name>outmodedlib</name>
@@ -46,6 +46,10 @@
               <pattern>de.tr7zw.changeme.nbtapi</pattern>
               <shadedPattern>net.outmoded.outmodedlib.nbt-api</shadedPattern>
             </relocation>
+            <relocation>
+              <pattern>org.bstats</pattern>
+              <shadedPattern>net.outmoded.outmodedlib.bstats</shadedPattern>
+            </relocation>
           </relocations>
         </configuration>
       </plugin>
@@ -80,6 +84,12 @@
       <artifactId>paper-api</artifactId>
       <version>1.21.4-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.bstats</groupId>
+      <artifactId>bstats-bukkit</artifactId>
+      <version>3.0.2</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>de.tr7zw</groupId>

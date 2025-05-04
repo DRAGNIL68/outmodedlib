@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.stream.Stream;
+import java.util.zip.Deflater;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -36,6 +37,7 @@ public class ZipFileUtil {
 
         zipFilePath = Files.createFile(Paths.get(zipOutputPath));
         zipOutputStream = new ZipOutputStream(Files.newOutputStream(zipFilePath));
+        zipOutputStream.setLevel(9);
 
         if (resourcePack.getDebugMode()) {
             getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "Starting Build ==============================");

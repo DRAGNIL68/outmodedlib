@@ -6,14 +6,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
-import org.bukkit.ChatColor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.Base64;
-
-import static org.bukkit.Bukkit.getServer;
 
 public class ResourcePack {
     FileSystem fileSystem;
@@ -200,19 +197,33 @@ public class ResourcePack {
 
     public void build(String outputFilePath) {
         try {
+
+            if (fileSystem == null){
+                throw new RuntimeException("Resource pack has already been closed");
+            }
+
             ZipFileUtil zipFileUtil = new ZipFileUtil(outputFilePath, this);
             zipFileUtil.addToZip("");
             //zipFileTest.addToZip("pack.mcmeta");
             if (!hasFile("pack.mcmeta")){
-                throw new RuntimeException("Resource pack dose not have pack.mcmeta!");
+                throw new RuntimeException("Resource pack dose not have pack.mcmeta");
             };
             zipFileUtil.endZip();
-            fileSystem.close();
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("could not build resource pack");
         }
 
 
+    }
+
+    public void closeFileSystem(){
+        try {
+            fileSystem.close();
+            fileSystem = null;
+        } catch (IOException e) {
+            throw new RuntimeException("Resource pack already closed");
+        }
     }
 
     public void setDebugMode(boolean debugMode){

@@ -5,6 +5,7 @@ import net.outmoded.outmodedlib.GUIcontainers.ContainerListener;
 import net.outmoded.outmodedlib.items.listener.*;
 import net.outmoded.outmodedlib.packer.InternalContent;
 import net.outmoded.outmodedlib.particles.ParticleManager;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,6 +25,9 @@ public final class Outmodedlib extends JavaPlugin {
             Outmodedlib.getInstance().getLogger().warning("you are running a unsupported version: supported version = 1.21.4");
         }
 
+        int pluginId = 25745;
+        Metrics metrics = new Metrics(this, pluginId);
+
 
         NBT.preloadApi(); // load nbt-api
 
@@ -37,7 +41,7 @@ public final class Outmodedlib extends JavaPlugin {
 
 
         InternalContent.registerInternalCustomContent();
-
+        //PackGenTest.runPack();
 
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
             public void run(){

@@ -2,35 +2,40 @@ package net.outmoded.outmodedlib.packer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.outmoded.outmodedlib.packer.jsonObjects.UnicodeProvider;
-import net.outmoded.outmodedlib.packer.jsonObjects.UnicodeSpriteSheetProvider;
 import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
 
 import java.util.ArrayList;
 
+import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 import static org.bukkit.Bukkit.getServer;
 
-public class UnicodeRegister extends Writable {
+public class UnicodeFileRegister extends Writable {
     private final ArrayList <UnicodeProvider> providers;
 
     @JsonIgnore
-    private int currentUnicodeValue = 0xE000;
+    private int currentUnicodeValue = 0xF0000;
 
     @JsonIgnore
     private ResourcePack resourcePack;
-
-
     @JsonIgnore
-    public UnicodeRegister(int unicodeStartingPointOffset) {
+    public final String namespacedWritePath ;
+    @JsonIgnore
+    public UnicodeFileRegister(int unicodeStartingPointOffset, String namespacedWritePath) {
+        this.namespacedWritePath = namespacedWritePath;
+        String fullPath;
+        fullPath = "assets/"+splitNamespaceId(namespacedWritePath)[0]+"/font/"+splitNamespaceId(namespacedWritePath)[1]+".json";
+        setFilePath(fullPath);
+
         currentUnicodeValue += unicodeStartingPointOffset;
         setFilePath("assets/minecraft/font/default.json");
         providers = new ArrayList<UnicodeProvider>();
     }
 
-    //UnicodeProvider(String type, String unicodeChar, int ascent, int height, String file
+    //UnicodeProvider(String namespacedWritePath, String type, String unicodeChar, int ascent, int height, String file
     @JsonIgnore
-    public String addUnicodeChar(UnicodeType type, int ascent, int height, String namespacedTexturePath){
-        if (currentUnicodeValue > 0xF8FF){
-            throw new RuntimeException("exceeded maximum unicode character limit (6,400)"); // this will never be exceeded lmao
+    public UnicodeProvider addUnicodeChar(UnicodeType type, int ascent, int height, String namespacedTexturePath){
+        if (currentUnicodeValue > 0xFFFFD){
+            throw new RuntimeException("exceeded maximum unicode character limit (65,534)");
 
         }
         getServer().getConsoleSender().sendMessage("unicode val: " + currentUnicodeValue + " charversion: " + (char)currentUnicodeValue);
@@ -41,16 +46,16 @@ public class UnicodeRegister extends Writable {
 
         chars.add(String.valueOf((char)currentUnicodeValue)); // only one Unicode
 
-        UnicodeProvider unicodeProvider = new UnicodeProvider(type.toString().toLowerCase(), chars, ascent, height, namespacedTexturePath+".png"); // add a new provider (pack witchcraft)
+        UnicodeProvider unicodeProvider = new UnicodeProvider(namespacedWritePath, type, chars, ascent, height, namespacedTexturePath+".png"); // add a new provider (pack witchcraft)
 
         currentUnicodeValue++; // add 1 to the Unicode value
         providers.add(unicodeProvider);
-        return String.valueOf(unicode);
+        return unicodeProvider;
     }
 
-    public String addUnicodeChar(UnicodeType type, int ascent, int height, String namespacedTexturePath, int currentUnicodeValueOverride){
-        if (currentUnicodeValueOverride > 0xF8FF){
-            throw new RuntimeException("exceeded maximum unicode character limit (6,400)"); // this will never be exceeded lmao
+    public String[] addUnicodeChar(UnicodeType type, int ascent, int height, String namespacedTexturePath, int currentUnicodeValueOverride){
+        if (currentUnicodeValueOverride > 0xFFFFD){
+            throw new RuntimeException("exceeded maximum unicode character limit (65,534)");
 
         }
         getServer().getConsoleSender().sendMessage("unicode val: " + currentUnicodeValue + " charversion: " + (char)currentUnicodeValue);
@@ -61,18 +66,19 @@ public class UnicodeRegister extends Writable {
 
         chars.add(String.valueOf((char)currentUnicodeValueOverride)); // only one Unicode
 
-        UnicodeProvider unicodeProvider = new UnicodeProvider(type.toString().toLowerCase(), chars, ascent, height, namespacedTexturePath+".png"); // add a new provider (pack witchcraft)
+        UnicodeProvider unicodeProvider = new UnicodeProvider(namespacedWritePath, type, chars, ascent, height, namespacedTexturePath+".png"); // add a new provider (pack witchcraft)
 
         providers.add(unicodeProvider);
-        return String.valueOf(unicode);
+
+        return new String[]{namespacedWritePath, String.valueOf(unicode)}; // namespace:font|�
     }
 
     //UnicodeProvider(String type, String unicodeChar, int ascent, int height, String file
     @JsonIgnore
-    public ArrayList<String> addUnicodeCharSpriteSheet(UnicodeType type, int ascent, int height, String namespacedTexturePath, TextureSize spriteSheetSize , TextureSize spriteSheetGridSize){ // must be dividable by 2
+    public UnicodeProvider addUnicodeCharSpriteSheet(UnicodeType type, int ascent, int height, String namespacedTexturePath, TextureSize spriteSheetSize , TextureSize spriteSheetGridSize){ // must be dividable by 2
 
         if (currentUnicodeValue > 0xFFFFD){
-            throw new RuntimeException("exceeded maximum unicode character limit (6,400)"); // this will never be exceeded lmao
+            throw new RuntimeException("exceeded maximum unicode character limit (65,534)");
 
         }
         // converts a hex value to a string
@@ -96,11 +102,12 @@ public class UnicodeRegister extends Writable {
             chars.add(rowOfChars);
         }
 
-        UnicodeProvider unicodeProvider = new UnicodeProvider(type.toString().toLowerCase(), chars, ascent, height, namespacedTexturePath+".png"); // add a new provider (pack witchcraft)
+        UnicodeProvider unicodeProvider = new UnicodeProvider(namespacedWritePath ,type, chars, ascent, height, namespacedTexturePath+".png"); // add a new provider (pack witchcraft)
 
          // add 1 to the Unicode value
         providers.add(unicodeProvider);
-        return chars;
+
+        return unicodeProvider;
     }
 
     public int getCurrentUnicodeValue(){
@@ -108,7 +115,8 @@ public class UnicodeRegister extends Writable {
     }
 
     public enum UnicodeType {
-        BITMAP
+        BITMAP,
+        TTF
     }
 
 

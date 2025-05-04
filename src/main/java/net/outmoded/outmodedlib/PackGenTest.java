@@ -2,7 +2,7 @@ package net.outmoded.outmodedlib;
 
 import net.outmoded.outmodedlib.packer.ResourcePack;
 import net.outmoded.outmodedlib.packer.TextureSize;
-import net.outmoded.outmodedlib.packer.UnicodeRegister;
+import net.outmoded.outmodedlib.packer.UnicodeFileRegister;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeModel;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeSelect;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints.ModelModelTypeTintProperties;
@@ -16,6 +16,7 @@ public class PackGenTest { // an example for generating a pack
     public static void runPack() {
         ResourcePack resourcePack = new ResourcePack("test_pack"); // <- create new resourcePack
         resourcePack.writeJsonObject(new McMeta("frogs", 42)); // <- creates pack.mcmeta
+        resourcePack.setDebugMode(true);
 
         ItemModelDefinitionTypeSelect modelDefinitionTypeSelect = new ItemModelDefinitionTypeSelect("test_pack:test_select", SelectModelTypeProperties.DISPLAY_CONTEXT, new DisplayContext());
         ItemModelDefinitionTypeModel itemModelDefinitionTypeModel = new ItemModelDefinitionTypeModel("mypvpz:katana", "e");
@@ -33,10 +34,10 @@ public class PackGenTest { // an example for generating a pack
 
         resourcePack.copyFileFromDisk("plugins/packtest/font.png", "assets/test_pack/textures/font.png");
 
-        UnicodeRegister unicodeRegister = new UnicodeRegister(0);
+        UnicodeFileRegister unicodeFileRegister = new UnicodeFileRegister(0, "pack_test:test_font");
 
-        unicodeRegister.addUnicodeCharSpriteSheet(
-                UnicodeRegister.UnicodeType.BITMAP,
+        unicodeFileRegister.addUnicodeCharSpriteSheet(
+                UnicodeFileRegister.UnicodeType.BITMAP,
                 2,
                 2,
                 "test_pack:font",
@@ -44,7 +45,7 @@ public class PackGenTest { // an example for generating a pack
                 new TextureSize(6, 7)
         );
 
-        resourcePack.writeJsonObject(unicodeRegister);
+        resourcePack.writeJsonObject(unicodeFileRegister);
         resourcePack.writeJsonObject(modelDefinitionTypeSelect);
         //resourcePack.base64ToTexture("assets/frog.png", "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAORJREFUeF7t1sERwzAMA0GputSc6pRxDfcQndn8YdMEgctea5317t8u4z9iCygbHKB1AcUEEdABShAFYLC06AAtDBYTYBAGYRAGYbC06AAtDBYTYBAGYRAGYbC06AAtDBYTYBAGYRAGYbC06AAtDBYTJmAwOVg+/tFawID/AS6gnnHRi4AIlPv5A+3VApqwPwuY4MLNGVzAze1PeLcLmOBCmeGc8yn611+ABbz5ArJ7e3/zM0p+qjYPbwEuQARyjGqOiz4PrwN0gA7IMSoZrto8vA7QATogx6jmuOjz8DpAB+QO+AGBF6RNi0nBcwAAAABJRU5ErkJggg==");
         resourcePack.build("plugins/" + resourcePack.getName() + ".zip"); // <- generates zip
