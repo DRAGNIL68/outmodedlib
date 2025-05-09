@@ -22,7 +22,7 @@ public class ResourcePack {
         this.name = name;
         createPath("/assets");
 
-        InternalContent.addInternalPackContent(this);
+        //InternalContent.addInternalPackContent(this);
 
     }
     public String getName(){

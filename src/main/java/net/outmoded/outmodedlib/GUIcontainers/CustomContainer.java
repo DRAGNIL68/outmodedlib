@@ -1,9 +1,12 @@
 package net.outmoded.outmodedlib.GUIcontainers;
 
 
+import net.outmoded.outmodedlib.Outmodedlib;
 import net.outmoded.outmodedlib.items.ItemManager;
 import net.outmoded.outmodedlib.packer.PackerUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -12,6 +15,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class CustomContainer {
@@ -43,16 +47,26 @@ public abstract class CustomContainer {
         }
         else{
 
-            ItemStack customItem = ItemManager.getInstance().getCustomItemStack("outmodedlib:invisible_placeholder").asItemStack();
+            ItemStack itemStack = new ItemStack(Material.PAPER);
+            NamespacedKey modelKey = new NamespacedKey("minecraft", "air");
+            ItemMeta meta = itemStack.getItemMeta();
+            meta.setItemModel(modelKey);
+            itemStack.setItemMeta(meta);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            itemMeta.itemName(null);
+
+            itemStack.setItemMeta(itemMeta);
             for (int slot : disabledSlots) {
                 if (slot <= inventory.getSize()){
                     this.disabledSlots[slot] = true;
 
-                    inventory.setItem(slot, customItem); // TODO: replace with one setStorageContents call
+                    inventory.setItem(slot, itemStack); // TODO: replace with one setStorageContents call
                 }
                 else {
 
-                    throw new RuntimeException("tried to disable a nonexistent slot " + slot + " maximum allowed slot is " + inventory.getSize());
+
+
+                    //Outmodedlib.getInstance().getLogger().getLogger.Info("tried to disable a nonexistent slot " + slot + " maximum allowed slot is " + inventory.getSize());
 
                 }
 

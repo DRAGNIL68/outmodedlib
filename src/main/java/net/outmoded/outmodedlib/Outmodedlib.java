@@ -19,7 +19,7 @@ public final class Outmodedlib extends JavaPlugin {
         // version check
         // should only be one minor versions I.e. supported version 1.21.4d
         String version = Bukkit.getMinecraftVersion();
-
+        Bukkit.getPluginManager().getPlugin("outmodedlib").getPluginMeta().getVersion();
         if (!version.equals("1.21.4")){
             getServer().getConsoleSender().sendMessage(version);
             Outmodedlib.getInstance().getLogger().warning("you are running a unsupported version: supported version = 1.21.4");

@@ -1,5 +1,5 @@
 name: outmodedlib
-version: 'v1.1'
+version: 'v1.2'
 main: net.outmoded.outmodedlib.Outmodedlib
 api-version: '1.21'
 author: DRAGNIL68

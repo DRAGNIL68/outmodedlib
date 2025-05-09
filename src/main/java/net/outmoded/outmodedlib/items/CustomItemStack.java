@@ -93,6 +93,12 @@ public class CustomItemStack {
         itemStack.setItemMeta(itemMeta);
     }
 
+    public void setName(Component itemName){
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.itemName(itemName);
+        itemStack.setItemMeta(itemMeta);
+    }
+
     public Component getName(){
         if (itemStack.getItemMeta().hasDisplayName()){
             return itemStack.getItemMeta().displayName();
@@ -168,36 +174,12 @@ public class CustomItemStack {
         return customItemStack;
     }
 
-    public void addAttribute(Attribute attribute, AttributeModifier.Operation operation, EquipmentSlotGroup equipmentSlot, Double value){ // adds a attribute
-        ItemMeta meta = itemStack.getItemMeta();
-        NamespacedKey key = new NamespacedKey(Outmodedlib.getInstance(), "attack_speed");
-        Multimap<Attribute, AttributeModifier> modifiers = meta.getAttributeModifiers();
-        AttributeModifier attributeModifier = new AttributeModifier(key, value, operation, equipmentSlot);
-        meta.addAttributeModifier(attribute, attributeModifier);
-
-        if (modifiers != null){
-
-
-            for (AttributeModifier modifier : modifiers.get(attribute)) {
-                meta.addAttributeModifier(attribute, attributeModifier);
-            }
-        }
-        itemStack.setItemMeta(meta);
-    }
 
     public void setAttribute(Attribute attribute, AttributeModifier.Operation operation, EquipmentSlotGroup equipmentSlot, Double value){ // sets an attribute and removes the existing one
-        ItemMeta meta = itemStack.getItemMeta();
-        NamespacedKey key = new NamespacedKey(Outmodedlib.getInstance(), "attack_speed");
+        ItemMeta meta = itemStack.getItemMeta(); // get item meta
+        NamespacedKey key = new NamespacedKey(Outmodedlib.getInstance(), "outmodedlib");
         Multimap<Attribute, AttributeModifier> modifiers = meta.getAttributeModifiers();
         AttributeModifier attributeModifier = new AttributeModifier(key, value, operation, equipmentSlot);
-
-        if (modifiers != null){
-
-
-            for (AttributeModifier modifier : modifiers.get(attribute)) {
-                meta.addAttributeModifier(attribute, attributeModifier);
-            }
-        }
 
         if (meta.hasAttributeModifiers()) {
             meta.removeAttributeModifier(attribute);

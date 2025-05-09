@@ -13,7 +13,7 @@ public class UnicodeFileRegister extends Writable {
     private final ArrayList <UnicodeProvider> providers;
 
     @JsonIgnore
-    private int currentUnicodeValue = 0xF0000;
+    private int currentUnicodeValue = 0xF0001;
 
     @JsonIgnore
     private ResourcePack resourcePack;
@@ -21,13 +21,13 @@ public class UnicodeFileRegister extends Writable {
     public final String namespacedWritePath ;
     @JsonIgnore
     public UnicodeFileRegister(int unicodeStartingPointOffset, String namespacedWritePath) {
+        currentUnicodeValue++;
         this.namespacedWritePath = namespacedWritePath;
         String fullPath;
         fullPath = "assets/"+splitNamespaceId(namespacedWritePath)[0]+"/font/"+splitNamespaceId(namespacedWritePath)[1]+".json";
         setFilePath(fullPath);
 
         currentUnicodeValue += unicodeStartingPointOffset;
-        setFilePath("assets/minecraft/font/default.json");
         providers = new ArrayList<UnicodeProvider>();
     }
 
@@ -38,7 +38,6 @@ public class UnicodeFileRegister extends Writable {
             throw new RuntimeException("exceeded maximum unicode character limit (65,534)");
 
         }
-        getServer().getConsoleSender().sendMessage("unicode val: " + currentUnicodeValue + " charversion: " + (char)currentUnicodeValue);
          // converts a hex value to a string
 
         char unicode = (char) currentUnicodeValue; // copy of Unicode as char
@@ -58,7 +57,6 @@ public class UnicodeFileRegister extends Writable {
             throw new RuntimeException("exceeded maximum unicode character limit (65,534)");
 
         }
-        getServer().getConsoleSender().sendMessage("unicode val: " + currentUnicodeValue + " charversion: " + (char)currentUnicodeValue);
         // converts a hex value to a string
 
         char unicode = (char) currentUnicodeValue; // copy of Unicode as char

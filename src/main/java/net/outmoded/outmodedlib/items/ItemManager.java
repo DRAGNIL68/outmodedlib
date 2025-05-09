@@ -42,7 +42,7 @@ public class ItemManager {
 
             }
             else{
-                throw new RuntimeException("Item already registered with namespaceId " + customItemStack.getNamespaceId());
+                Outmodedlib.getInstance().getLogger().warning(" Item already registered with namespaceId "+customItemStack.getNamespaceId());
             }
 
 
@@ -53,6 +53,11 @@ public class ItemManager {
 
     public void unregisterCustomItemStack(String namespaceId){
         CustomItemStack customItemStack = itemManagerInstance.getCustomItemStack(namespaceId);
+
+        if (customItemStack == null){
+            return;
+        }
+
         RegisteredItemEvent event = new RegisteredItemEvent(customItemStack.getNamespaceId(), customItemStack);
         Bukkit.getPluginManager().callEvent(event);
 
@@ -85,13 +90,13 @@ public class ItemManager {
 
     }
 
-    public boolean isCustomItemStack(ItemStack itemStack){
+    public boolean isCustomItemStack(ItemStack itemStack) {
         if (itemStack == null)
             return false;
 
         NamespacedKey namespacedIdKey = new NamespacedKey(Outmodedlib.getInstance(), "namespacedId");
         String namespacedId = null;
-        if (itemStack.getPersistentDataContainer().has(namespacedIdKey)){
+        if (itemStack.getPersistentDataContainer().has(namespacedIdKey)) {
             namespacedId = itemStack.getPersistentDataContainer().get(namespacedIdKey, PersistentDataType.STRING);
 
         }
@@ -104,6 +109,18 @@ public class ItemManager {
         else
             return false;
 
+    }
+
+    public boolean isExactlyCustomItemStack(ItemStack itemStack){
+        if (!isCustomItemStack(itemStack))
+            return false;
+
+        if (itemStack.isSimilar(getCustomItemStack(ItemManager.getInstance().getCustomItemStackNamespaceId(itemStack)).asItemStack())){
+            return true;
+
+        }
+
+        return false;
     }
 
     public String getCustomItemStackNamespaceId(ItemStack itemStack) {
@@ -125,7 +142,7 @@ public class ItemManager {
     }
 
     public CustomItemStack convertToCustomItemStack(ItemStack itemStack){
-        if (!itemManagerInstance.isCustomItemStack(itemStack)){
+        if (itemManagerInstance.isCustomItemStack(itemStack)){
             String namespaceId = getCustomItemStackNamespaceId(itemStack);
 
             CustomItemStack customItemStack = new CustomItemStack(itemStack.getType(), namespaceId);
