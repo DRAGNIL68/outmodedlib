@@ -37,22 +37,10 @@ public class CustomItemStack {
     public CustomItemStack(Material material, String namespaceId) {
         itemStack = new ItemStack(material);
 
-        for (Field field : DataComponentTypes.class.getDeclaredFields()) {
-            if (Modifier.isStatic(field.getModifiers())){
-                Object value = null;
-                try {
-                    value = field.get(null);
-
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-
-                itemStack.unsetData((DataComponentType) value);
-            }
-
+        for (DataComponentType dt : itemStack.getDataTypes()) {
+            itemStack.unsetData(dt);
         }
 
-        itemStack.getItemMeta();
         if (namespaceId.indexOf(":") != namespaceId.lastIndexOf(":")){
             throw new RuntimeException("Cannot use ':' in item namespaceId except for separating namespace and id");
         }
@@ -63,11 +51,11 @@ public class CustomItemStack {
             meta.getPersistentDataContainer().set(namespacedId, PersistentDataType.STRING, namespaceId);
         });
 
-        ItemMeta meta = itemStack.getItemMeta();
-
-        Multimap<Attribute, AttributeModifier> modifiers = ArrayListMultimap.create();
-        meta.setAttributeModifiers(modifiers); // removes attributes of vanilla item
-        itemStack.setItemMeta(meta);
+//        ItemMeta meta = itemStack.getItemMeta();
+//
+//        Multimap<Attribute, AttributeModifier> modifiers = ArrayListMultimap.create();
+//        meta.setAttributeModifiers(modifiers); // removes attributes of vanilla item
+//        itemStack.setItemMeta(meta);
     }
 
 

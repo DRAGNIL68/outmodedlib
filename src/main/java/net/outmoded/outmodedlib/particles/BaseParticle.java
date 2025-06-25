@@ -16,7 +16,7 @@ public interface BaseParticle {
     default @NotNull Integer getLivedTicks(){
         return null;
     };
-    void setLivedTicks();
+    void setLivedTicks(int livedTicks);
     default @NotNull UUID getUuid(){
         return null;
     }

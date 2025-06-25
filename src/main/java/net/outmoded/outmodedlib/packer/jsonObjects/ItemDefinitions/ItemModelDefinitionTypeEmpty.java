@@ -1,11 +1,6 @@
 package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints.ModelModelTypeTintProperties;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints.TintPropertiesInterface;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 

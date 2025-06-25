@@ -1,11 +1,11 @@
-package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints;
+package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.outmoded.outmodedlib.packer.jsonObjects.NonWritable;
 
-public class TintPotion extends NonWritable implements TintPropertiesInterface<TintPotion> {
+public class TintFirework extends NonWritable implements TintPropertiesInterface<TintFirework> {
 
-    private final String type = "minecraft:potion";
+    private final String type = "minecraft:firework";
     
     @JsonProperty("default")
     private Object value;
@@ -17,31 +17,31 @@ public class TintPotion extends NonWritable implements TintPropertiesInterface<T
 
 
     public static class Builder {
-        private TintPotion tintPotion;
+        private TintFirework tintFirework;
 
         public Builder() {
-            tintPotion = new TintPotion();
+            tintFirework = new TintFirework();
         }
 
         // Method to add a float value
         public Builder setDefault(int value) {
-            tintPotion.value = value;
+            tintFirework.value = value;
             return this;  // Return the builder to allow chaining
         }
         public Builder setDefault(int r, int g, int b) {
-            tintPotion.value = new int[]{r, g, b};
+            tintFirework.value = new int[]{r, g, b};
             return this;  // Return the builder to allow chaining
         }
         
 
         // Build method to return the final object
-        public TintPotion build() {
-            return tintPotion;
+        public TintFirework build() {
+            return tintFirework;
         }
     }
 
     // Static method to get a new builder instance
-    public static Builder tintPotion() {
+    public static Builder tintFirework() {
         return new Builder();
     }
 

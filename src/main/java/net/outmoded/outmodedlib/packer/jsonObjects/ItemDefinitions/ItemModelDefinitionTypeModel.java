@@ -1,10 +1,8 @@
 package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints.ModelModelTypeTintProperties;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints.TintPropertiesInterface;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.SelectModelTypeProperties;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.SelectPropertiesInterface;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.ModelModelTypeTintProperties;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.TintPropertiesInterface;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

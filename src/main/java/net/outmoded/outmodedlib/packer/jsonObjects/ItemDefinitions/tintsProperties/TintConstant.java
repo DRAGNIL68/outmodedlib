@@ -1,4 +1,4 @@
-package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints;
+package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties;
 
 import net.outmoded.outmodedlib.packer.jsonObjects.NonWritable;
 

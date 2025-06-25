@@ -1,0 +1,29 @@
+package net.outmoded.outmodedlib.packer.jsonObjects.unicode.providers;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.outmoded.outmodedlib.packer.jsonObjects.unicode.BaseUnicodeProvider;
+import net.outmoded.outmodedlib.packer.jsonObjects.unicode.UnicodeType;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class SpaceUnicodeProvider extends BaseUnicodeProvider {
+    public final HashMap<String, Integer> advances = new HashMap<>();
+
+    @JsonIgnore
+    public SpaceUnicodeProvider(){
+        super(UnicodeType.SPACE);
+
+    }
+
+    public SpaceUnicodeProvider addAdvancesCase(@NotNull String key, @NotNull int value){
+        advances.put(key, value);
+        return this;
+    }
+
+    @Override
+    public String getStringType() {
+        return "space";
+    }
+}

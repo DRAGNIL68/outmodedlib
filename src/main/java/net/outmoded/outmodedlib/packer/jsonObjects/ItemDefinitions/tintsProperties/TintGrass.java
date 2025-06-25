@@ -1,6 +1,5 @@
-package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints;
+package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import net.outmoded.outmodedlib.packer.jsonObjects.NonWritable;
 
 public class TintGrass extends NonWritable implements TintPropertiesInterface<TintGrass> {

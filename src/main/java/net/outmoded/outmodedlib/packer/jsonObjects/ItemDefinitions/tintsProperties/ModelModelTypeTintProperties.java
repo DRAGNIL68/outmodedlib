@@ -1,4 +1,4 @@
-package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.modelProterties.tints;
+package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties;
 
 public class ModelModelTypeTintProperties<T> {
     public static final ModelModelTypeTintProperties<TintConstant> CONSTANT = new ModelModelTypeTintProperties<>();
