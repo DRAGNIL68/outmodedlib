@@ -56,6 +56,8 @@ public class VanillaCraftingPrevention implements Listener { // prevents custom 
 
 
 
+
+
         if (event.getRecipe() != null && recipe instanceof ShapedRecipe shapedRecipe) {
 
             if (event.getRecipe() == null){
@@ -67,7 +69,7 @@ public class VanillaCraftingPrevention implements Listener { // prevents custom 
             Map<Character, RecipeChoice> ingredients = shapedRecipe.getChoiceMap();
 
             // ############################# converts rows into a list from 0 to 8
-            char[] chars = new char[9];
+            char[] chars = new char[event.getInventory().getMatrix().length];
 
             int index = 0;
             for (String row : shape) {
@@ -79,7 +81,7 @@ public class VanillaCraftingPrevention implements Listener { // prevents custom 
             // #############################
 
 
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < event.getInventory().getMatrix().length; i++) {
                 ItemStack itemStack = matrixOnTable[i];
 
                 if (itemStack == null || itemStack.getType() == Material.AIR){
@@ -100,7 +102,7 @@ public class VanillaCraftingPrevention implements Listener { // prevents custom 
 
             ArrayList<RecipeChoice> ingredients = new ArrayList<RecipeChoice>(shapelessRecipe.getChoiceList());
 
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < event.getInventory().getMatrix().length; i++) {
                 ItemStack itemStack = matrixOnTable[i];
 
                 if (itemStack == null || itemStack.getType() == Material.AIR){
