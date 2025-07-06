@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
+import net.outmoded.outmodedlib.InternalPackContent;
 import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +23,7 @@ public class ResourcePack {
         this.name = name;
         createPath("/assets");
 
-        //InternalContent.addInternalPackContent(this);
+        InternalPackContent.addContent(this); // adds stuff that all packs need
 
     }
     public String getName(){

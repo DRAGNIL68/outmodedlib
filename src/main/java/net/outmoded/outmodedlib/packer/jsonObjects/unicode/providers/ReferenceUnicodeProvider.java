@@ -10,6 +10,11 @@ import java.util.HashMap;
 public class ReferenceUnicodeProvider extends BaseUnicodeProvider {
 
     public final String id;
+
+
+    /**
+     * Refer to https://minecraft.wiki/w/Resource_pack#Fonts for more info
+     */
     @JsonIgnore
     public ReferenceUnicodeProvider(String namespacedIdToFont){
         super(UnicodeType.REFERENCE);

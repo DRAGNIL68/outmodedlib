@@ -1,6 +1,8 @@
 package net.outmoded.outmodedlib.GUIcontainers;
 
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.outmoded.outmodedlib.Outmodedlib;
 import net.outmoded.outmodedlib.items.ItemManager;
 import net.outmoded.outmodedlib.packer.PackerUtils;
@@ -15,20 +17,27 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.MenuType;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class CustomContainer {
 
 
-    private String title;
-    private String texture;
-    private int textureOffset;
-    private Inventory inventory;
-    private boolean[] disabledSlots = new boolean[54];
+    public final String title;
+    public final String texture;
+    public final int textureOffset;
+    public final Inventory inventory;
+    public boolean[] disabledSlots = new boolean[54];
 
 
-
+    /**
+     * To change title create a new gui (prevets dupes and bugs),
+     * <p>
+     * If you open a new gui without closing the last one the player was in the players cursor does
+     * not get reset to the middle of the screen
+     *
+     */
     public CustomContainer(String title, @NotNull Integer size, int textureOffset, int[] disabledSlots ,String texture){
         if (size > 54){
             size = 54;
@@ -38,6 +47,9 @@ public abstract class CustomContainer {
         this.texture = texture;
         this.textureOffset = textureOffset;
         inventory = Bukkit.createInventory(null, size, combinedTileAndTexture());
+
+        ContainerManager.getInstance().registerHandledContainer(inventory, this);
+
         for (int i = 0; i < inventory.getSize(); i++) {
             this.disabledSlots[i] = false;
         }
@@ -75,19 +87,49 @@ public abstract class CustomContainer {
 
     }
 
-    private String combinedTileAndTexture(){
+    public void openInventory(Player player){
+        player.openInventory(inventory);
+    }
+
+    public void setDisabledSlots(int[] disabledSlots) {
+
+        ItemStack itemStack = new ItemStack(Material.PAPER);
+        NamespacedKey modelKey = new NamespacedKey("minecraft", "air");
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setItemModel(modelKey);
+        itemStack.setItemMeta(meta);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.itemName(null);
+
+        itemStack.setItemMeta(itemMeta);
+        for (int slot : disabledSlots) {
+            if (slot <= inventory.getSize()) {
+                this.disabledSlots[slot] = true;
+
+                inventory.setItem(slot, itemStack); // TODO: replace with one setStorageContents call
+            } else {
+
+
+                //Outmodedlib.getInstance().getLogger().getLogger.Info("tried to disable a nonexistent slot " + slot + " maximum allowed slot is " + inventory.getSize());
+
+            }
+        }
+    }
+
+    private Component combinedTileAndTexture(){
         Integer length = 1;
         if (textureOffset != 0){
             length++;
 
         }
 
-        String titleOffset = PackerUtils.getNegativeOffsetCharFromInt(length);
+        Component titleOffset = PackerUtils.getNegativeOffset(length);
 
-        String textureOffset = PackerUtils.getNegativeOffsetCharFromInt(this.textureOffset);
+        Component textureOffset = PackerUtils.getNegativeOffset(this.textureOffset);
+        Component texture = MiniMessage.miniMessage().deserialize(this.texture);
+        Component title = MiniMessage.miniMessage().deserialize(this.texture);
 
-
-        return textureOffset + texture + titleOffset + title;
+        return textureOffset.append(texture).append(titleOffset).append(title);
     }
 
     public @NotNull Inventory getInventory(){

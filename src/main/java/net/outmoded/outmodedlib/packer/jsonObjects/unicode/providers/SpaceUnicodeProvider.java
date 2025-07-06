@@ -11,6 +11,10 @@ import java.util.HashMap;
 public class SpaceUnicodeProvider extends BaseUnicodeProvider {
     public final HashMap<String, Integer> advances = new HashMap<>();
 
+
+    /**
+     * Refer to https://minecraft.wiki/w/Resource_pack#Fonts for more info
+     */
     @JsonIgnore
     public SpaceUnicodeProvider(){
         super(UnicodeType.SPACE);

@@ -16,6 +16,10 @@ public class UnihexUnicodeProvider extends BaseUnicodeProvider {
     @JsonProperty("size_overrides")
     public ArrayList<UnihexSizeOverrides> sizeOverrides;
 
+
+    /**
+     * Refer to https://minecraft.wiki/w/Resource_pack#Fonts for more info
+     */
     @JsonIgnore
     public UnihexUnicodeProvider(String namespacedZipPath){
         super(UnicodeType.UNIHEX);

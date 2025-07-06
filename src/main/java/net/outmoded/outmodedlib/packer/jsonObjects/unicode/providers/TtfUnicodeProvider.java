@@ -15,6 +15,10 @@ public class TtfUnicodeProvider extends BaseUnicodeProvider {
     public final ArrayList<String> skip = new ArrayList<String>();
     public ArrayList<Integer> shift;
 
+
+    /**
+     * Refer to https://minecraft.wiki/w/Resource_pack#Fonts for more info
+     */
     @JsonIgnore
     public TtfUnicodeProvider(char unicodeChar, String namespacedTexturePath ,int size, int oversample){
         super(UnicodeType.TTF);

@@ -1,0 +1,311 @@
+{
+  "credit":"Made By DRAGNIL68 For The Outmodedlib",
+  "providers": [
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE001"
+      ],
+      "height": 1,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE002"
+      ],
+      "height": 2,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE003"
+      ],
+      "height": 3,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE004"
+      ],
+      "height": 4,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE005"
+      ],
+      "height": 5,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE006"
+      ],
+      "height": 6,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE007"
+      ],
+      "height": 7,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE008"
+      ],
+      "height": 8,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE009"
+      ],
+      "height": 9,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE010"
+      ],
+      "height": 10,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE011"
+      ],
+      "height": 16,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE012"
+      ],
+      "height": 32,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE013"
+      ],
+      "height": 64,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE014"
+      ],
+      "height": 128,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE015"
+      ],
+      "height": 256,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE016"
+      ],
+      "height": 512,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE017"
+      ],
+      "height": 1024,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE018"
+      ],
+      "height": -1,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE019"
+      ],
+      "height": -2,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE020"
+      ],
+      "height": -3,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE021"
+      ],
+      "height": -4,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE022"
+      ],
+      "height": -5,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE023"
+      ],
+      "height": -6,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE024"
+      ],
+      "height": -7,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE025"
+      ],
+      "height": -8,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE026"
+      ],
+      "height": -9,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE027"
+      ],
+      "height": -10,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE028"
+      ],
+      "height": -16,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE029"
+      ],
+      "height": -32,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE030"
+      ],
+      "height": -64,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE031"
+      ],
+      "height": -128,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE032"
+      ],
+      "height": -256,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE033"
+      ],
+      "height": -512,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib/invisible1x1.png",
+      "chars": [
+        "\uE034"
+      ],
+      "height": -1024,
+      "ascent": -5000,
+      "type": "bitmap"
+    }
+  ]
+}
