@@ -1,6 +1,6 @@
 outmodedlib is not even close to being finished.
 
-current featers:
+current features:
 - custom item system
 - texture pack generation system
 - custom gui system
