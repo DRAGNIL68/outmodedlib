@@ -5,5 +5,4 @@ current featers:
 - texture pack generation system
 - custom gui system
 - negative offsets
-- custom partical system
-- 
+- custom particle system
