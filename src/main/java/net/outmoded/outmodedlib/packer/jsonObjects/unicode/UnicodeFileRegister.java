@@ -29,9 +29,9 @@ public class UnicodeFileRegister extends Writable {
         providers = new ArrayList<>();
     }
 
-    public <T> void addUnicodeProvider(BaseUnicodeProvider unicodeProvider){
+    public <T> UnicodeFileRegister addUnicodeProvider(BaseUnicodeProvider unicodeProvider){
         providers.add(unicodeProvider);
-
+        return this;
     }
 
 

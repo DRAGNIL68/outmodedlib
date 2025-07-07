@@ -123,9 +123,9 @@ public abstract class CustomContainer {
 
         }
 
-        Component titleOffset = PackerUtils.getNegativeOffset(length);
+        Component titleOffset = PackerUtils.getOffset(length);
 
-        Component textureOffset = PackerUtils.getNegativeOffset(this.textureOffset);
+        Component textureOffset = PackerUtils.getOffset(this.textureOffset);
         Component texture = MiniMessage.miniMessage().deserialize(this.texture);
         Component title = MiniMessage.miniMessage().deserialize(this.texture);
 
