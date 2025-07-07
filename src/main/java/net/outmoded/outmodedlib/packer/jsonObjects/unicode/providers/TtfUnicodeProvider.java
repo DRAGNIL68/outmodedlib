@@ -26,7 +26,7 @@ public class TtfUnicodeProvider extends BaseUnicodeProvider {
         this. oversample =  oversample;
         this.file = namespacedTexturePath;
         chars = new ArrayList<String>();
-        chars.add(String.valueOf(chars));
+        chars.add(String.valueOf(unicodeChar));
 
     }
 

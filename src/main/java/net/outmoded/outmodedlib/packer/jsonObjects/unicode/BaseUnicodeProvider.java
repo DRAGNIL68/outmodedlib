@@ -15,6 +15,8 @@ public abstract class BaseUnicodeProvider extends NonWritable implements Unicode
         this.type = String.valueOf(type).toLowerCase();
     }
 
+
+    @JsonIgnore
     public void setFilter(@NotNull Filter filter){
         this.filter = filter;
     }

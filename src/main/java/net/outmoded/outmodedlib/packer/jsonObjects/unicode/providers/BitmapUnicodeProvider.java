@@ -1,7 +1,6 @@
 package net.outmoded.outmodedlib.packer.jsonObjects.unicode.providers;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.outmoded.outmodedlib.packer.jsonObjects.unicode.BaseUnicodeProvider;
 import net.outmoded.outmodedlib.packer.jsonObjects.unicode.UnicodeType;
 
@@ -19,13 +18,13 @@ public class BitmapUnicodeProvider extends BaseUnicodeProvider {
      * Refer to https://minecraft.wiki/w/Resource_pack#Fonts for more info
      */
     @JsonIgnore
-    public BitmapUnicodeProvider(char unicodeChar, String namespacedTexturePath ,int ascent, int height){
+    public BitmapUnicodeProvider(char unicodeChar, String namespacedTexturePath, int ascent, int height){
         super(UnicodeType.BITMAP);
         this.ascent = ascent;
         this.height = height;
         this.file = namespacedTexturePath;
         chars = new ArrayList<>();
-        chars.add(String.valueOf(chars));
+        chars.add(String.valueOf(unicodeChar));
 
 
     }
@@ -60,7 +59,7 @@ public class BitmapUnicodeProvider extends BaseUnicodeProvider {
         this.file = namespacedTexturePath;
     }
 
-    @Override
+    @JsonIgnore
     public String getStringType() {
         return "bitmap";
     }

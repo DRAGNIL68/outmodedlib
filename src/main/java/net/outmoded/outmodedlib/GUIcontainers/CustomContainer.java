@@ -24,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class CustomContainer {
 
 
-    public final String title;
-    public final String texture;
+    public final Component title;
+    public final Component texture;
     public final int textureOffset;
     public final Inventory inventory;
     public boolean[] disabledSlots = new boolean[54];
@@ -38,7 +38,7 @@ public abstract class CustomContainer {
      * not get reset to the middle of the screen
      *
      */
-    public CustomContainer(String title, @NotNull Integer size, int textureOffset, int[] disabledSlots ,String texture){
+    public CustomContainer(Component title, @NotNull Integer size, int textureOffset, int[] disabledSlots ,Component texture){
         if (size > 54){
             size = 54;
         }
@@ -126,9 +126,6 @@ public abstract class CustomContainer {
         Component titleOffset = PackerUtils.getOffset(length);
 
         Component textureOffset = PackerUtils.getOffset(this.textureOffset);
-        Component texture = MiniMessage.miniMessage().deserialize(this.texture);
-        Component title = MiniMessage.miniMessage().deserialize(this.texture);
-
         return textureOffset.append(texture).append(titleOffset).append(title);
     }
 
@@ -149,11 +146,11 @@ public abstract class CustomContainer {
         return disabledSlots;
     }
 
-    public String getTitle() {
+    public Component getTitle() {
         return title;
     }
 
-    public String getTexture() {
+    public Component getTexture() {
         return texture;
     }
 
