@@ -1,4 +1,4 @@
-outmodedlib is not even close to being finished.
+The outmodedlib is not even close to being finished.
 
 current features:
 - custom item system
