@@ -25,8 +25,6 @@ public abstract class CustomContainer {
 
 
     public final Component title;
-    public final Component texture;
-    public final int textureOffset;
     public final Inventory inventory;
     public boolean[] disabledSlots = new boolean[54];
 
@@ -38,15 +36,13 @@ public abstract class CustomContainer {
      * not get reset to the middle of the screen
      *
      */
-    public CustomContainer(Component title, @NotNull Integer size, int textureOffset, int[] disabledSlots ,Component texture){
+    public CustomContainer(Component title, @NotNull Integer size, int[] disabledSlots){
         if (size > 54){
             size = 54;
         }
 
         this.title = title;
-        this.texture = texture;
-        this.textureOffset = textureOffset;
-        inventory = Bukkit.createInventory(null, size, combinedTileAndTexture());
+        inventory = Bukkit.createInventory(null, size, title);
 
         ContainerManager.getInstance().registerHandledContainer(inventory, this);
 
@@ -116,18 +112,6 @@ public abstract class CustomContainer {
         }
     }
 
-    private Component combinedTileAndTexture(){
-        Integer length = 1;
-        if (textureOffset != 0){
-            length++;
-
-        }
-
-        Component titleOffset = PackerUtils.getOffset(length);
-
-        Component textureOffset = PackerUtils.getOffset(this.textureOffset);
-        return textureOffset.append(texture).append(titleOffset).append(title);
-    }
 
     public @NotNull Inventory getInventory(){
         return inventory;
@@ -148,14 +132,6 @@ public abstract class CustomContainer {
 
     public Component getTitle() {
         return title;
-    }
-
-    public Component getTexture() {
-        return texture;
-    }
-
-    public int getTextureOffset() {
-        return textureOffset;
     }
 
 }

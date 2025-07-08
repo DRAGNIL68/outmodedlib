@@ -2,7 +2,7 @@
   "credit":"Made By DRAGNIL68 For The Outmodedlib",
   "providers": [
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE001"
       ],
@@ -11,7 +11,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE002"
       ],
@@ -20,7 +20,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE003"
       ],
@@ -29,7 +29,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE004"
       ],
@@ -38,7 +38,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE005"
       ],
@@ -47,7 +47,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE006"
       ],
@@ -56,7 +56,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE007"
       ],
@@ -65,7 +65,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE008"
       ],
@@ -74,7 +74,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE009"
       ],
@@ -83,7 +83,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE010"
       ],
@@ -92,7 +92,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE011"
       ],
@@ -101,7 +101,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE012"
       ],
@@ -110,7 +110,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE013"
       ],
@@ -119,7 +119,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE014"
       ],
@@ -128,7 +128,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE015"
       ],
@@ -137,7 +137,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE016"
       ],
@@ -146,7 +146,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE017"
       ],
@@ -155,7 +155,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE018"
       ],
@@ -164,7 +164,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE019"
       ],
@@ -173,7 +173,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE020"
       ],
@@ -182,7 +182,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE021"
       ],
@@ -191,7 +191,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE022"
       ],
@@ -200,7 +200,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE023"
       ],
@@ -209,7 +209,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE024"
       ],
@@ -218,7 +218,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE025"
       ],
@@ -227,7 +227,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE026"
       ],
@@ -236,7 +236,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE027"
       ],
@@ -245,7 +245,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE028"
       ],
@@ -254,7 +254,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE029"
       ],
@@ -263,7 +263,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE030"
       ],
@@ -272,7 +272,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE031"
       ],
@@ -281,7 +281,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE032"
       ],
@@ -290,7 +290,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE033"
       ],
@@ -299,7 +299,7 @@
       "type": "bitmap"
     },
     {
-      "file": "_outmodedlib/invisible1x1.png",
+      "file": "_outmodedlib:invisible1x1.png",
       "chars": [
         "\uE034"
       ],

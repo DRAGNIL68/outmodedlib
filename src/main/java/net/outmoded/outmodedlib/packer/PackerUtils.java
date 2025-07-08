@@ -2,6 +2,7 @@ package net.outmoded.outmodedlib.packer;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.outmoded.outmodedlib.Outmodedlib;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -14,7 +15,7 @@ public abstract class PackerUtils {
 
 
     public static String getOffsetValue(Integer offset){
-        // remember lists start at 0
+
         char[] positiveOffsets = new char[]{0xE001, 0xE002, 0xE003, 0xE004, 0xE005, 0xE006, 0xE007, 0xE008, 0xE009, 0xE010, 0xE011, 0xE012, 0xE013, 0xE014, 0xE015, 0xE016, 0xE017};
         char[] negativeOffsets = new char[]{0xE018, 0xE019, 0xE020, 0xE021, 0xE022, 0xE023, 0xE024, 0xE025, 0xE026, 0xE027, 0xE028, 0xE029, 0xE030, 0xE031, 0xE032, 0xE033, 0xE034};
         String finalOffset = "";
@@ -91,7 +92,6 @@ public abstract class PackerUtils {
     public static Component getOffset(int offset){
         return MiniMessage.miniMessage().deserialize("<font:_outmodedlib:offset_font>"+getOffsetValue(offset)+"</font>");
     }
-
 
 
     public static char getUnicodeCharFromInt(int integer){
