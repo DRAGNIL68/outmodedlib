@@ -1,7 +1,9 @@
 package net.outmoded.outmodedlib.GUIcontainers;
 
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.outmoded.outmodedlib.Outmodedlib;
 import net.outmoded.outmodedlib.items.ItemManager;
@@ -61,9 +63,11 @@ public abstract class CustomContainer {
             meta.setItemModel(modelKey);
             itemStack.setItemMeta(meta);
             ItemMeta itemMeta = itemStack.getItemMeta();
-            itemMeta.itemName(null);
-
             itemStack.setItemMeta(itemMeta);
+
+            itemStack.setData(DataComponentTypes.HIDE_TOOLTIP);
+
+
             for (int slot : disabledSlots) {
                 if (slot <= inventory.getSize()){
                     this.disabledSlots[slot] = true;

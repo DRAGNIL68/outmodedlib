@@ -37,13 +37,27 @@ public class ContainerManager {
         CustomContainer customContainer = loadedContainers.get(event.getInventory());
 
         if (customContainer != null) {
+
+            if (event.getClickedInventory() != event.getView().getTopInventory()){
+                return;
+
+            }
             boolean[] disabledSlots = customContainer.getDisabledSlots();
 
-            if (disabledSlots[event.getSlot()]){ // jumps to the correct slot so no need to loop
-                event.setCancelled(true);
-                return;
+
+            if (event.getSlot() != -999){
+
+                if (disabledSlots[event.getSlot()]){ // jumps to the correct slot so no need to loop
+                    event.setCancelled(true);
+                    return;
+                }
+
             }
+
+
             customContainer.onClick(event);
+
+
 
         }
     }
