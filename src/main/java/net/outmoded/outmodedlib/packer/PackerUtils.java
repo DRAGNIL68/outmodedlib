@@ -29,13 +29,13 @@ public abstract class PackerUtils {
 
 
                 for (int i = 0; i < divided; i++){
-                    finalOffset = finalOffset.concat(String.valueOf(positiveOffsets[10]));
+                    finalOffset = finalOffset.concat(String.valueOf(positiveOffsets[9]));
 
                 }
 
                 if (remainder != 0){
                     for (int i = 0; i < remainder; i++){
-                        finalOffset = finalOffset.concat(String.valueOf(positiveOffsets[1]));
+                        finalOffset = finalOffset.concat(String.valueOf(positiveOffsets[0]));
 
                     }
 
@@ -44,7 +44,7 @@ public abstract class PackerUtils {
             }
             else { // if 1- spacing is not possible just use 1 spacing
                 for (int i = 0; i < offset; i++){
-                    finalOffset = finalOffset.concat(String.valueOf(positiveOffsets[1]));
+                    finalOffset = finalOffset.concat(String.valueOf(positiveOffsets[0]));
 
                 }
 
@@ -62,22 +62,22 @@ public abstract class PackerUtils {
 
 
                 for (int i = 0; i < divided; i++){
-                    finalOffset = finalOffset.concat(String.valueOf(negativeOffsets[10]));
+                    finalOffset = finalOffset.concat(String.valueOf(negativeOffsets[9]));
 
                 }
 
                 if (remainder != 0){
                     for (int i = 0; i < remainder; i++){
-                        finalOffset = finalOffset.concat(String.valueOf(negativeOffsets[1]));
+                        finalOffset = finalOffset.concat(String.valueOf(negativeOffsets[0]));
 
                     }
 
                 }
 
             }
-            else { // if 1- spacing is not possible just use 1 spacing
+            else { // if -1 spacing is not possible just use 1 spacing
                 for (int i = 0; i < Math.abs(offset); i++){
-                    finalOffset = finalOffset.concat(String.valueOf(negativeOffsets[1]));
+                    finalOffset = finalOffset.concat(String.valueOf(negativeOffsets[0]));
 
                 }
 
@@ -92,6 +92,8 @@ public abstract class PackerUtils {
     public static Component getOffset(int offset){
         return MiniMessage.miniMessage().deserialize("<font:_outmodedlib:offset_font>"+getOffsetValue(offset)+"</font>");
     }
+
+
 
 
     public static char getUnicodeCharFromInt(int integer){

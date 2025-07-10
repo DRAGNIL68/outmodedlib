@@ -11,7 +11,7 @@ public class BitmapUnicodeProvider extends BaseUnicodeProvider {
     public final int ascent;
     public final int height;
     public final String file;
-    public final ArrayList<String> chars;
+    public final String[] chars;
 
 
     /**
@@ -23,10 +23,7 @@ public class BitmapUnicodeProvider extends BaseUnicodeProvider {
         this.ascent = ascent;
         this.height = height;
         this.file = namespacedTexturePath;
-        chars = new ArrayList<>();
-        chars.add(String.valueOf(unicodeChar));
-
-
+        chars = new String[]{String.valueOf(unicodeChar)};
     }
 
 
@@ -51,7 +48,7 @@ public class BitmapUnicodeProvider extends BaseUnicodeProvider {
     *  }
     */
     @JsonIgnore
-    public BitmapUnicodeProvider(ArrayList<String> unicodeChars, String namespacedTexturePath, int ascent, int height){
+    public BitmapUnicodeProvider(String[] unicodeChars, String namespacedTexturePath, int ascent, int height){
         super(UnicodeType.BITMAP);
         this.ascent = ascent;
         this.height = height;
