@@ -2,6 +2,7 @@ package net.outmoded.outmodedlib.GUIcontainers;
 
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.TooltipDisplay;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -65,7 +66,8 @@ public abstract class CustomContainer {
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemStack.setItemMeta(itemMeta);
 
-            itemStack.setData(DataComponentTypes.HIDE_TOOLTIP);
+            itemStack.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().
+                    addHiddenComponents(DataComponentTypes.ATTRIBUTE_MODIFIERS));
 
 
             for (int slot : disabledSlots) {

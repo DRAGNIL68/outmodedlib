@@ -1,6 +1,5 @@
 package net.outmoded.outmodedlib;
 
-import de.tr7zw.changeme.nbtapi.NBT;
 import net.outmoded.outmodedlib.GUIcontainers.ContainerListener;
 import net.outmoded.outmodedlib.items.listener.*;
 import net.outmoded.outmodedlib.packer.InternalContent;
@@ -9,7 +8,6 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.nio.file.Path;
 
 
 public final class Outmodedlib extends JavaPlugin {
@@ -28,8 +26,6 @@ public final class Outmodedlib extends JavaPlugin {
         int pluginId = 25745;
         Metrics metrics = new Metrics(this, pluginId);
 
-
-        NBT.preloadApi(); // load nbt-api
 
         Bukkit.getPluginManager().registerEvents(new ContainerListener(), this); // custom gui listener
         Bukkit.getPluginManager().registerEvents(new VanillaCraftingPrevention(), this); // crafting listener

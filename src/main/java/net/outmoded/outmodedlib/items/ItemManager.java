@@ -1,6 +1,5 @@
 package net.outmoded.outmodedlib.items;
 
-import de.tr7zw.changeme.nbtapi.NBT;
 import net.outmoded.outmodedlib.Outmodedlib;
 import net.outmoded.outmodedlib.items.events.RegisteredItemEvent;
 import org.bukkit.Bukkit;
