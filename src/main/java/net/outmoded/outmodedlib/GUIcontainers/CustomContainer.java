@@ -24,6 +24,9 @@ import org.bukkit.inventory.MenuType;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * you extend this and override the event methods I.e. onClick, onOpen etc
+ */
 public abstract class CustomContainer {
 
 

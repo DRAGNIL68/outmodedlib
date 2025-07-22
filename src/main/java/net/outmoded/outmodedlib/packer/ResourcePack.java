@@ -7,12 +7,17 @@ import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import net.outmoded.outmodedlib.InternalPackContent;
 import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
+import org.jetbrains.annotations.ApiStatus;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.Base64;
 
+/**
+ * the place where all cool things start
+ */
 public class ResourcePack {
     FileSystem fileSystem;
     private final String name;
@@ -31,10 +36,20 @@ public class ResourcePack {
 
     }
 
+    @ApiStatus.Internal
+    /**
+     * lets you mess with the virtual file system
+     */
     public FileSystem getFileSystem(){
         return fileSystem;
     }
 
+    /**
+     * used to copy a file from your computers drive to the resource pack
+     * @param filePath
+     * @param pastePath
+     * @return
+     */
     public boolean copyFileFromDisk(String filePath, String pastePath) {
         try {
             Path directory = fileSystem.getPath(pastePath); // gets path in virtual file system
@@ -58,6 +73,12 @@ public class ResourcePack {
         }
     }
 
+    /**
+     * copy a file from your plugins resources folder to the resource pack
+     * @param inputStream
+     * @param pastePath
+     * @return
+     */
     public boolean copyFileFromResources(InputStream inputStream, String pastePath) { // use something like this as input: InputStream inputStream = MyPlugin.getInstance().getResource("plugin.yml");
         try {
 
@@ -80,6 +101,12 @@ public class ResourcePack {
         }
     }
 
+    /**
+     * used to copy a file from your computers drive to the resource pack
+     * @param filePath
+     * @param pastePath
+     * @return
+     */
     public boolean copyFileFromDisk(Path filePath, String pastePath) {
         try {
             Path directory = fileSystem.getPath(pastePath); // gets path in virtual file system
@@ -103,7 +130,11 @@ public class ResourcePack {
         }
     }
 
-
+    /**
+     * this has no real use
+     * @param path
+     * @return
+     */
     public boolean createPath(String path){
         try {
             Path directory = fileSystem.getPath(path);
@@ -120,6 +151,11 @@ public class ResourcePack {
 
     }
 
+    /**
+     * used to create a generic file like a text file
+     * @param filePath
+     * @param contents
+     */
     public void createGenericFile(String filePath, String contents){
         try {
 
@@ -143,6 +179,11 @@ public class ResourcePack {
 
     }
 
+    /**
+     * needs rewriting
+     * @param filePath
+     * @param textureAsBase64
+     */
     public void base64ToTexture(String filePath, String textureAsBase64 ) {
         try {
             Path directory = fileSystem.getPath(filePath);
@@ -163,7 +204,11 @@ public class ResourcePack {
         }
     }
 
-
+    /**
+     * checks if a file exists in the resource pack
+     * @param filePath
+     * @return
+     */
     public boolean hasFile(String filePath){
         Path directory = fileSystem.getPath(filePath);
         return Files.exists(directory);
@@ -181,7 +226,11 @@ public class ResourcePack {
     }
 
 
-
+    /**
+     * lets you write a component like Unicode File or Item Model Definition to the resource pack
+     * @param object
+     * @return
+     */
     public ResourcePack writeJsonObject(Writable object){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -196,6 +245,10 @@ public class ResourcePack {
         return this;
     }
 
+    /**
+     * creates a zip file
+     * @param outputFilePath
+     */
     public void build(String outputFilePath) {
         try {
 
@@ -218,6 +271,9 @@ public class ResourcePack {
 
     }
 
+    /**
+     * closes a resource packs virtual file system, will throw errors if you try to use it after its closed
+     */
     public void closeFileSystem(){
         try {
             fileSystem.close();
@@ -227,6 +283,10 @@ public class ResourcePack {
         }
     }
 
+    /**
+     * prints everything added to console
+     * @param debugMode
+     */
     public void setDebugMode(boolean debugMode){
         this.debugMode = debugMode;
     }

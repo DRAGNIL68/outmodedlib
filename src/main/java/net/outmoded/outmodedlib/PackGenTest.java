@@ -1,7 +1,6 @@
 package net.outmoded.outmodedlib;
 
 import net.outmoded.outmodedlib.packer.ResourcePack;
-import net.outmoded.outmodedlib.packer.TextureSize;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeModel;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeSelect;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.ModelModelTypeTintProperties;

@@ -8,7 +8,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 public class ContainerListener implements Listener {
-
+    // simple events for gui system
 
     @EventHandler
     public void onClick(InventoryClickEvent event){

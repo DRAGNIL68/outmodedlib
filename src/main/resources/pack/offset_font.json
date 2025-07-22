@@ -24,6 +24,8 @@
         "\uE015": 256,
         "\uE016": 512,
         "\uE017": 1024,
+        "\uE037": 0.1,
+        "\uE038": 0.01,
 
         "\uE018": -1,
         "\uE019": -2,
@@ -41,8 +43,9 @@
         "\uE031": -128,
         "\uE032": -256,
         "\uE033": -512,
-        "\uE034": -1024
-
+        "\uE034": -1024,
+        "\uE035": -0.1,
+        "\uE036": -0.01
       }
     },
     {
@@ -350,6 +353,43 @@
       "height": -1024,
       "ascent": -5000,
       "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib:invisible1x1.png",
+      "chars": [
+        "\uE035"
+      ],
+      "height": 0,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib:invisible1x1.png",
+      "chars": [
+        "\uE036"
+      ],
+      "height": 0,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib:invisible1x1.png",
+      "chars": [
+        "\uE037"
+      ],
+      "height": 0,
+      "ascent": -5000,
+      "type": "bitmap"
+    },
+    {
+      "file": "_outmodedlib:invisible1x1.png",
+      "chars": [
+        "\uE038"
+      ],
+      "height": 0,
+      "ascent": -5000,
+      "type": "bitmap"
     }
+
   ]
 }

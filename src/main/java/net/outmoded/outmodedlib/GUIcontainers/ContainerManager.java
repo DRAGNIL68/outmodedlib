@@ -10,6 +10,9 @@ import org.bukkit.inventory.Inventory;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The {@link ContainerManager} manages all custom guis and handles events etc
+ */
 public class ContainerManager {
     private final  Map<Inventory, CustomContainer> loadedContainers = new HashMap<>();
     private static ContainerManager containerManagerInstance;

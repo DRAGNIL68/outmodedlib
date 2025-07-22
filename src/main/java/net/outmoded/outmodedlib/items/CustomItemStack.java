@@ -27,6 +27,9 @@ import java.lang.reflect.Modifier;
 
 import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 
+/**
+ * Outmodedlibs custom item class
+ */
 public class CustomItemStack {
     private final ItemStack itemStack; // vanilla item used
     private final String namespaceId; // I.e. test:cool_item
@@ -58,12 +61,19 @@ public class CustomItemStack {
 //        itemStack.setItemMeta(meta);
     }
 
-
+    /**
+     * if stack size is never set it will default to 1
+     * @param stackSize
+     */
     public void setStackSize(int stackSize){
         itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, stackSize);
 
     }
 
+    /**
+     * sets the rarity like some vanilla items, it changes the colour of the name....
+     * @param rarity
+     */
     public void setRarity(ItemRarity rarity){
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setRarity(rarity);
@@ -74,6 +84,11 @@ public class CustomItemStack {
         return itemStack.getMaxStackSize();
     }
 
+
+    /**
+     * sets the item name, this is not the same as a custom name you give an item in an anvil
+     * @param itemName
+     */
     public void setName(String itemName){
         final Component component = MiniMessage.miniMessage().deserialize(itemName);
         ItemMeta itemMeta = itemStack.getItemMeta();
@@ -81,6 +96,10 @@ public class CustomItemStack {
         itemStack.setItemMeta(itemMeta);
     }
 
+    /**
+     * sets the item name, this is not the same as a custom name you give an item in an anvil
+     * @param itemName
+     */
     public void setName(Component itemName){
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.itemName(itemName);
@@ -96,7 +115,11 @@ public class CustomItemStack {
         return null;
     }
 
-    public void setDamage(int damage){ // sets damage I.e. max durability is 500 if you use set damage(300) the items durability will be 200
+    /**
+     * sets damage I.e. if your max durability is 500 if you use set damage(300) the items durability will be 200
+     * @param damage
+     */
+    public void setDamage(int damage){
         ItemMeta meta = itemStack.getItemMeta();
         Damageable damageable = (Damageable) meta;
         damageable.setDamage(damage);
@@ -104,6 +127,10 @@ public class CustomItemStack {
         // needs looking into see:https://github.com/PluginBugs/Issues-ItemsAdder/issues/3536
     }
 
+    /**
+     * sets the custom model
+     * @param namespacedModelDefPath
+     */
     public void setModel(String namespacedModelDefPath){ // sets the custom model of this item I.e. setModel("namespace:test_item")
         String namespace = splitNamespaceId(namespacedModelDefPath)[0];
         String modelDefPath = splitNamespaceId(namespacedModelDefPath)[1];
@@ -119,7 +146,10 @@ public class CustomItemStack {
         return model;
     }
 
-
+    /**
+     * sets the max durability of this {@link CustomItemStack}
+     * @param maxDurability
+     */
     public void setMaxDurability(int maxDurability){
         ItemMeta meta = itemStack.getItemMeta();
         Damageable damageable = (Damageable) meta;
@@ -128,11 +158,18 @@ public class CustomItemStack {
     }
 
 
-
+    /**
+     * returns the current {@link CustomItemStack} as a normal {@link ItemStack}, it's not a copy changes will reflect on the CustomItemStack
+     * @return
+     */
     public ItemStack asItemStack(){
         return itemStack;
     }
 
+    /**
+     * returns the namespacedId it will be something like "test:cool_sword"
+     * @return
+     */
     public String getNamespaceId(){
         return namespaceId;
     }
@@ -149,6 +186,11 @@ public class CustomItemStack {
         return damageable.getMaxDamage();
     }
 
+
+    /**
+     * clones the CustomItemStack
+     * @return
+     */
     public CustomItemStack clone(){
 
         ItemMeta itemMeta = this.itemStack.getItemMeta();
@@ -163,7 +205,15 @@ public class CustomItemStack {
     }
 
 
-    public void setAttribute(Attribute attribute, AttributeModifier.Operation operation, EquipmentSlotGroup equipmentSlot, Double value){ // sets an attribute and removes the existing one
+    /**
+     * sets an attribute and removes the existing one.
+     * use this for setting default attributes
+     * @param attribute
+     * @param operation
+     * @param equipmentSlot
+     * @param value
+     */
+    public void setAttribute(Attribute attribute, AttributeModifier.Operation operation, EquipmentSlotGroup equipmentSlot, Double value){
         ItemMeta meta = itemStack.getItemMeta(); // get item meta
         NamespacedKey key = new NamespacedKey(Outmodedlib.getInstance(), "outmodedlib");
         Multimap<Attribute, AttributeModifier> modifiers = meta.getAttributeModifiers();

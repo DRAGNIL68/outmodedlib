@@ -28,7 +28,10 @@ public class ItemManager {
         return itemManagerInstance;
     }
 
-
+    /**
+     * lets you register a custom item
+     * @param customItemStack
+     */
     public void registerCustomItemStack(CustomItemStack customItemStack){
             if (!itemRegistry.containsKey(customItemStack.getNamespaceId())) {
                 RegisteredItemEvent event = new RegisteredItemEvent(customItemStack.getNamespaceId(), customItemStack);
@@ -50,6 +53,10 @@ public class ItemManager {
 
     }
 
+    /**
+     * lets you unregister a custom item
+     * @param namespaceId
+     */
     public void unregisterCustomItemStack(String namespaceId){
         CustomItemStack customItemStack = itemManagerInstance.getCustomItemStack(namespaceId);
 
@@ -67,6 +74,11 @@ public class ItemManager {
 
     }
 
+    /**
+     * get a custom item
+     * @param namespaceId
+     * @return
+     */
     public CustomItemStack getCustomItemStack(String namespaceId){
         if (itemRegistry.containsKey(namespaceId)){
             return itemRegistry.get(namespaceId).clone();
@@ -75,6 +87,11 @@ public class ItemManager {
 
     }
 
+    /**
+     * check if a {@link CustomItemStack} exists
+     * @param namespaceId
+     * @return
+     */
     public boolean customItemStackExists(String namespaceId){
         return itemRegistry.containsKey(namespaceId);
     }
@@ -89,6 +106,12 @@ public class ItemManager {
 
     }
 
+
+    /**
+     * checks if a {@link ItemStack} is a custom item, it uses the NamespacedId nbt tag
+     * @param itemStack
+     * @return
+     */
     public boolean isCustomItemStack(ItemStack itemStack) {
         if (itemStack == null)
             return false;
@@ -110,6 +133,11 @@ public class ItemManager {
 
     }
 
+    /**
+     * checks if a {@link ItemStack} is 100% an exact copy of a registered custom item
+     * @param itemStack
+     * @return
+     */
     public boolean isExactlyCustomItemStack(ItemStack itemStack){
         if (!isCustomItemStack(itemStack))
             return false;
@@ -122,6 +150,11 @@ public class ItemManager {
         return false;
     }
 
+    /**
+     * get namespaced id of a custom item
+     * @param itemStack
+     * @return
+     */
     public String getCustomItemStackNamespaceId(ItemStack itemStack) {
 
         NamespacedKey namespacedIdKey = new NamespacedKey(Outmodedlib.getInstance(), "namespacedId");
@@ -140,6 +173,11 @@ public class ItemManager {
 
     }
 
+    /**
+     * convert a custom item back into a {@link CustomItemStack}
+     * @param itemStack
+     * @return
+     */
     public CustomItemStack convertToCustomItemStack(ItemStack itemStack){
         if (itemManagerInstance.isCustomItemStack(itemStack)){
             String namespaceId = getCustomItemStackNamespaceId(itemStack);
