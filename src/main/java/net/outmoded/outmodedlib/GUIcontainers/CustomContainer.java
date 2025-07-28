@@ -66,12 +66,8 @@ public abstract class CustomContainer {
             ItemMeta meta = itemStack.getItemMeta();
             meta.setItemModel(modelKey);
             itemStack.setItemMeta(meta);
-            ItemMeta itemMeta = itemStack.getItemMeta();
-            itemStack.setItemMeta(itemMeta);
 
-            itemStack.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().
-                    addHiddenComponents(DataComponentTypes.ATTRIBUTE_MODIFIERS));
-
+            itemStack.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().hideTooltip(true));
 
             for (int slot : disabledSlots) {
                 if (slot <= inventory.getSize()){
@@ -126,13 +122,13 @@ public abstract class CustomContainer {
         return inventory;
     };
 
-    public void onClick(InventoryClickEvent event){};
+    public abstract void onClick(InventoryClickEvent event);
 
-    public void onOpen(InventoryOpenEvent event){};
+    public abstract void onOpen(InventoryOpenEvent event);
 
-    public void onClose(InventoryCloseEvent event){};
+    public abstract void onClose(InventoryCloseEvent event);
 
-    public void onDrag(InventoryDragEvent event){};
+    public abstract void onDrag(InventoryDragEvent event);
 
 
     boolean[] getDisabledSlots(){

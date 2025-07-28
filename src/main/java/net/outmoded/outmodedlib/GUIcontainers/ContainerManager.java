@@ -52,11 +52,9 @@ public class ContainerManager {
 
                 if (disabledSlots[event.getSlot()]){ // jumps to the correct slot so no need to loop
                     event.setCancelled(true);
-                    return;
                 }
 
             }
-
 
             customContainer.onClick(event);
 

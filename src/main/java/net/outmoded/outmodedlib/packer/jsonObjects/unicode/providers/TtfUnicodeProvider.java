@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class TtfUnicodeProvider extends BaseUnicodeProvider {
 
-    public final int size;
-    public final int  oversample;
+    public final double size;
+    public final double oversample;
     public final String file;
     public final ArrayList<String> chars;
     public final ArrayList<String> skip = new ArrayList<String>();
@@ -20,7 +20,7 @@ public class TtfUnicodeProvider extends BaseUnicodeProvider {
      * Refer to https://minecraft.wiki/w/Resource_pack#Fonts for more info
      */
     @JsonIgnore
-    public TtfUnicodeProvider(char unicodeChar, String namespacedTexturePath ,int size, int oversample){
+    public TtfUnicodeProvider(char unicodeChar, String namespacedTexturePath ,double size, double oversample){
         super(UnicodeType.TTF);
         this.size = size;
         this. oversample =  oversample;

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SpaceUnicodeProvider extends BaseUnicodeProvider {
-    public final HashMap<String, Integer> advances = new HashMap<>();
+    public final HashMap<String, Double> advances = new HashMap<>();
 
 
     /**
@@ -22,7 +22,7 @@ public class SpaceUnicodeProvider extends BaseUnicodeProvider {
 
     }
 
-    public SpaceUnicodeProvider addAdvancesCase(@NotNull String key, @NotNull int value){
+    public SpaceUnicodeProvider addAdvancesCase(@NotNull String key, @NotNull double value){
         advances.put(key, value);
         return this;
     }

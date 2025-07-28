@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class BitmapUnicodeProvider extends BaseUnicodeProvider {
 
-    public final int ascent;
-    public final int height;
+    public final double ascent;
+    public final double height;
     public final String file;
     public final String[] chars;
 
@@ -18,7 +18,7 @@ public class BitmapUnicodeProvider extends BaseUnicodeProvider {
      * Refer to https://minecraft.wiki/w/Resource_pack#Fonts for more info
      */
     @JsonIgnore
-    public BitmapUnicodeProvider(char unicodeChar, String namespacedTexturePath, int ascent, int height){
+    public BitmapUnicodeProvider(char unicodeChar, String namespacedTexturePath, double ascent, double height){
         super(UnicodeType.BITMAP);
         this.ascent = ascent;
         this.height = height;
@@ -48,7 +48,7 @@ public class BitmapUnicodeProvider extends BaseUnicodeProvider {
     *  }
     */
     @JsonIgnore
-    public BitmapUnicodeProvider(String[] unicodeChars, String namespacedTexturePath, int ascent, int height){
+    public BitmapUnicodeProvider(String[] unicodeChars, String namespacedTexturePath, double ascent, double height){
         super(UnicodeType.BITMAP);
         this.ascent = ascent;
         this.height = height;
