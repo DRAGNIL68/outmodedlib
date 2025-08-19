@@ -3,6 +3,8 @@ package net.outmoded.outmodedlib;
 import net.outmoded.outmodedlib.packer.ResourcePack;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeModel;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeSelect;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.BlockState.BlockState;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.ChargeType.ChargeTypeCase;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.ModelModelTypeTintProperties;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.TintConstant;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.DisplayContext.DisplayContextCase;
@@ -18,7 +20,7 @@ public class PackGenTest { // an example for generating a pack
         resourcePack.writeJsonObject(new McMeta("frogs", 42)); // <- creates pack.mcmeta
         resourcePack.setDebugMode(true);
 
-        ItemModelDefinitionTypeSelect modelDefinitionTypeSelect = new ItemModelDefinitionTypeSelect("test_pack:test_select", SelectModelTypeProperties.DISPLAY_CONTEXT, new DisplayContext());
+        ItemModelDefinitionTypeSelect modelDefinitionTypeSelect = new ItemModelDefinitionTypeSelect("test_pack:test_select", SelectModelTypeProperties.BLOCK_STATE, new BlockState());
         ItemModelDefinitionTypeModel itemModelDefinitionTypeModel = new ItemModelDefinitionTypeModel("mypvpz:katana", "e");
 
         itemModelDefinitionTypeModel.addTint(ModelModelTypeTintProperties.CONSTANT, TintConstant.tintConstant().setValue(1).build());
@@ -31,6 +33,8 @@ public class PackGenTest { // an example for generating a pack
                         itemModelDefinitionTypeModel)
                 );
 
+        modelDefinitionTypeSelect.
+                addCase(new ChargeTypeCase(new ChargeTypeCase.When[]{ChargeTypeCase.When.ARROW}, itemModelDefinitionTypeModel));
 
         resourcePack.copyFileFromDisk("plugins/packtest/font.png", "assets/test_pack/textures/font.png");
 

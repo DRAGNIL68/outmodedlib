@@ -3,7 +3,8 @@ package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProper
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.BlockState.BlockState;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.DisplayContext.DisplayContext;
 
-public class SelectModelTypeProperties<T> {
+public class SelectModelTypeProperties<T> { // this file provides all the possible options,
+    // the interface decides
     public static final SelectModelTypeProperties<BlockState> BLOCK_STATE = new SelectModelTypeProperties<>();
     public static final SelectModelTypeProperties<BlockState> CHARGE_TYPE = new SelectModelTypeProperties<>();
     public static final SelectModelTypeProperties<BlockState> CONTEXT_DIMENSION = new SelectModelTypeProperties<>();

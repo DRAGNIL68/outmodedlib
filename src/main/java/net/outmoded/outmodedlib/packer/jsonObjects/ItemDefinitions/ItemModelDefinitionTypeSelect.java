@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ItemModelDefinitionTypeSelect extends BaseItemModelDefinition{
+public class  ItemModelDefinitionTypeSelect extends BaseItemModelDefinition{
     @JsonIgnore
-    private final ArrayList<CaseInterface> displayContextCases = new ArrayList<>();
+    private final ArrayList<CaseInterface> contextCases = new ArrayList<>();
     // ItemModelDefinitionTypeSelect("something", "something", Property.BLOCK_STATE, new BlockState().set(3))
     // itemDef.addCase(new Case(type = list, When = enum, type = BaseItemModelDefinition))
 
@@ -27,8 +27,8 @@ public class ItemModelDefinitionTypeSelect extends BaseItemModelDefinition{
 
 
     public ItemModelDefinitionTypeSelect addCase(CaseInterface c){
-        displayContextCases.add(c);
-        baseProperties.put("cases", displayContextCases);
+        contextCases.add(c);
+        baseProperties.put("cases", contextCases);
         return this;
     }
 }
