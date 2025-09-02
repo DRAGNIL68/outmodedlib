@@ -37,7 +37,7 @@ public final class Outmodedlib extends JavaPlugin {
 
 
         InternalContent.registerInternalCustomContent();
-        //PackGenTest.runPack();
+        PackGenTest.runPack();
 
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
             public void run(){
