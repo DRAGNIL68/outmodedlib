@@ -10,8 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class PackerUtils {
 
@@ -112,7 +114,11 @@ public abstract class PackerUtils {
         return MiniMessage.miniMessage().deserialize("<font:_outmodedlib:offset_font>"+getOffsetValue(offset)+"</font><font:default>");
     }
 
+    public static UUID resourcePackIdToUuid(String resourcePackId){
 
+        byte[] seedBytes = resourcePackId.getBytes(StandardCharsets.UTF_8);
+        return UUID.nameUUIDFromBytes(seedBytes);
+    }
 
 
     public static char getUnicodeCharFromInt(int integer){
