@@ -9,7 +9,11 @@ import net.outmoded.outmodedlib.particles.ParticleManager;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.eclipse.jetty.logging.JettyLevel;
+import org.eclipse.jetty.logging.JettyLoggerConfiguration;
+import org.eclipse.jetty.logging.JettyLoggerFactory;
 
+import java.util.Arrays;
 
 
 public final class Outmodedlib extends JavaPlugin {
@@ -24,6 +28,11 @@ public final class Outmodedlib extends JavaPlugin {
             getServer().getConsoleSender().sendMessage(version);
             Outmodedlib.getInstance().getLogger().warning("you are running a unsupported version: supported version = 1.21.7 ");
         }
+
+//        JettyLoggerFactory jettyLoggerFactory = new JettyLoggerFactory(new JettyLoggerConfiguration());
+//        Outmodedlib.getInstance().getLogger().warning("loggers "+ Arrays.toString(jettyLoggerFactory.getLoggerNames()));
+//
+//        jettyLoggerFactory.getJettyLogger("ROOT").setLevel(JettyLevel.TRACE);
 
         int pluginId = 25745;
         Metrics metrics = new Metrics(this, pluginId);

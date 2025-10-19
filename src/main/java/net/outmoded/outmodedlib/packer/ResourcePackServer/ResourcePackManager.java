@@ -4,22 +4,46 @@ package net.outmoded.outmodedlib.packer.ResourcePackServer;
 
 
 
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
+import com.google.common.io.ByteSource;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.resource.ResourcePackInfo;
+import net.kyori.adventure.resource.ResourcePackRequest;
+import net.kyori.adventure.text.Component;
+import net.outmoded.outmodedlib.Outmodedlib;
+import org.apache.logging.log4j.Level;
 import org.bukkit.entity.Player;
-import org.eclipse.jetty.ee10.servlet.DefaultServlet;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.eclipse.aether.spi.log.Logger;
+import org.eclipse.jetty.ee10.servlet.ResourceServlet;
 import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.ee10.servlet.ServletHolder;
+import org.eclipse.jetty.logging.JettyLevel;
+import org.eclipse.jetty.logging.JettyLogger;
+import org.eclipse.jetty.logging.JettyLoggerConfiguration;
+import org.eclipse.jetty.logging.JettyLoggerFactory;
+import org.eclipse.jetty.server.CustomRequestLog;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.Slf4jRequestLogWriter;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static java.util.logging.Level.INFO;
+
 public class ResourcePackManager {
-    protected final static Map<String, ResourcePackInfo> resourcePacksPaths = new HashMap<>();
+    protected final static Map<String, ResourcePackData> resourcePacksPaths = new HashMap<>();
     private static ResourcePackManager resourcePackManagerInstance;
     private Server server;
     private String ip;
@@ -38,9 +62,11 @@ public class ResourcePackManager {
     }
 
     public void startResourcePackServer(){
-        startResourcePackServer("0.0.0.0", 8080, 30000);
+        startResourcePackServer("127.0.0.1", 49155, 30000);
 
     }
+
+
 
     // I don't understand this dammed library (Jetty)
     public void startResourcePackServer(String ip, int port, long idleTimeout) {
@@ -57,7 +83,10 @@ public class ResourcePackManager {
         this.port = port;
         this.idleTimeout = idleTimeout;
 
+
+
         server = new Server();
+
 
 
         ServerConnector connector = new ServerConnector(server);
@@ -72,13 +101,12 @@ public class ResourcePackManager {
 
 
         for (String key : resourcePacksPaths.keySet()){
-            ResourcePackInfo resourcePackInfo = resourcePacksPaths.get(key);
+            ResourcePackData ResourcePackData = resourcePacksPaths.get(key);
 
-            DefaultServlet defaultServlet = new DefaultServlet();
-            ServletHolder holder = new ServletHolder("default", defaultServlet);
-            holder.setInitParameter("resourceBase", resourcePackInfo.path.getParent().toString());
-            holder.setInitParameter("dirAllowed", "false");
-            context.addServlet(holder, "/"+resourcePackInfo.path.getFileName());
+            ServletHolder servletHolder = context.addServlet(ResourceServlet.class, "/"+ResourcePackData.path.getFileName().toString());
+            servletHolder.setInitParameter("baseResource", ResourcePackData.path.getParent().toAbsolutePath().toString());
+            servletHolder.setInitParameter("dirAllowed", "false");
+            servletHolder.setAsyncSupported(true);
 
         }
 
@@ -90,8 +118,16 @@ public class ResourcePackManager {
         }
     }
 
-    public void registerResourcePacks(@NotNull String resourcePackId, @NotNull Path resourcePackPath, @NotNull boolean autoLoad){
-        if (resourcePacksPaths.containsKey(resourcePackPath.getFileName().toString()))
+    public void registerExternalResourcePack(@NotNull String resourcePackId, @NotNull String externalResourcePackUrl, @NotNull String md5Hash ,@NotNull boolean autoLoad) {
+        if (resourcePacksPaths.containsKey(resourcePackId))
+            return;
+
+        ResourcePackData ResourcePackData = new ResourcePackData(resourcePackId, null, autoLoad, externalResourcePackUrl, md5Hash);
+        resourcePacksPaths.put(resourcePackId, ResourcePackData);
+    }
+
+    public void registerResourcePack(@NotNull String resourcePackId, @NotNull Path resourcePackPath, @NotNull boolean autoLoad) {
+        if (resourcePacksPaths.containsKey(resourcePackId))
             return;
 
 
@@ -99,13 +135,13 @@ public class ResourcePackManager {
             return;
 
 
-        ResourcePackInfo resourcePackInfo = new ResourcePackInfo(resourcePackId, resourcePackPath, autoLoad);
-        resourcePacksPaths.put(String.valueOf(resourcePackPath.getFileName()), resourcePackInfo);
+        ResourcePackData ResourcePackData = new ResourcePackData(resourcePackId, resourcePackPath, autoLoad, null, null);
+        resourcePacksPaths.put(resourcePackId, ResourcePackData);
 
         reloadResourcePackServer();
     }
 
-    public void deregisterResourcePacks(String resourcePackId){
+    public void deregisterResourcePack(String resourcePackId){
         resourcePacksPaths.remove(resourcePackId);
         reloadResourcePackServer();
     }
@@ -120,15 +156,38 @@ public class ResourcePackManager {
         player.removeResourcePack(generatedUuid);
     }
 
-    public void addResourcePackToPlayer(Player player, String resourcePackId){
-        if (!resourcePacksPaths.containsKey(resourcePackId))
-            return;
 
+    public void addResourcePackToPlayer(Audience target, String resourcePackId){
+        if (!resourcePacksPaths.containsKey(resourcePackId)){
+            return;
+        }
+
+        Player player;
         byte[] seedBytes = resourcePackId.getBytes(StandardCharsets.UTF_8);
         UUID generatedUuid = UUID.nameUUIDFromBytes(seedBytes);
 
-        player.addResourcePack(generatedUuid, ip+":"+port+"/"+resourcePacksPaths.get(resourcePackId).path.getFileName(), null, null, true);
+
+
+
+        final ResourcePackInfo PACK_INFO = ResourcePackInfo.resourcePackInfo()
+                .uri(URI.create(resourcePacksPaths.get(resourcePackId).getUrl()))
+                .hash(resourcePacksPaths.get(resourcePackId).getMd5Hash())
+                .id(generatedUuid)
+                .build();
+
+
+        final ResourcePackRequest request = ResourcePackRequest.resourcePackRequest()
+                .packs(PACK_INFO)
+                .prompt(Component.text("Please download the resource pack!"))
+                .required(true)
+                .build();
+
+        // Send the resource pack request to the target audience
+        target.sendResourcePacks(request);
+
     }
+
+
 
 
     public void reloadResourcePackServer(){
@@ -136,7 +195,7 @@ public class ResourcePackManager {
             if (server.isRunning())
                 server.stop();
 
-            server.start();
+            startResourcePackServer();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -150,17 +209,56 @@ public class ResourcePackManager {
         }
     }
 
-    protected static class ResourcePackInfo{
-        public final Path path;
-        public final String resourcePackId;
-        public final boolean autoLoad;
+    protected class ResourcePackData{
+        private final Path path;
+        private final String resourcePackId;
+        private final boolean autoLoad;
 
-        ResourcePackInfo(String resourcePackId, Path path, boolean autoLoad){
+        private String staticUrl; // used for external packs
+        private String staticMd5Hash; // used for external packs
+
+        ResourcePackData(String resourcePackId, Path path, boolean autoLoad, String staticUrl, String staticMd5Hash){
             this.path = path;
             this.resourcePackId = resourcePackId;
             this.autoLoad = autoLoad;
+            this.staticUrl = staticUrl;
+            this.staticMd5Hash = staticMd5Hash;
         }
 
+        public String getUrl(){
+            if (staticUrl == null){
+                return "http://"+ResourcePackManager.getInstance().ip+":"+ResourcePackManager.getInstance().port+"/"+resourcePacksPaths.get(resourcePackId).path.getFileName();
+
+            }
+            return staticUrl;
+        }
+
+        public String getMd5Hash(){
+            if (staticMd5Hash == null){
+
+                String checksum;
+
+                try {
+                    ByteSource byteSource = com.google.common.io.Files.asByteSource(path.toFile());
+                    HashCode hc = byteSource.hash(Hashing.md5());
+                    checksum = hc.toString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                return checksum;
+
+            }
+            return staticMd5Hash;
+        }
+
+        public String getResourcePackId(){
+            return resourcePackId;
+        }
+
+        public boolean getAutoLoad(){
+            return autoLoad;
+        }
 
     }
 
