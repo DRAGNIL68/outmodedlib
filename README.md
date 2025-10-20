@@ -20,7 +20,7 @@ maven
 	<dependency>
 	    <groupId>com.github.DRAGNIL68</groupId>
 	    <artifactId>outmodedlib</artifactId>
-	    <version>Tag</version>
+	    <version>v1.4.1</version>
 	</dependency>
 ```
 gradle
@@ -36,6 +36,6 @@ gradle
 ```
 
 	dependencies {
-	        implementation 'com.github.DRAGNIL68:outmodedlib:Tag'
+	        implementation 'com.github.DRAGNIL68:outmodedlib:v1.4.1'
 	}
 ```
