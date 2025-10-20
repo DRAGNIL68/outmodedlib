@@ -15,7 +15,8 @@ maven
 		    <url>https://jitpack.io</url>
 		</repository>
 	</repositories>
-
+```
+```
 	<repositories>
 		<repository>
 		    <id>jitpack.io</id>
@@ -32,6 +33,8 @@ gradle
 			maven { url 'https://jitpack.io' }
 		}
 	}
+```
+```
 
 	dependencies {
 	        implementation 'com.github.DRAGNIL68:outmodedlib:Tag'
