@@ -17,12 +17,11 @@ maven
 	</repositories>
 ```
 ```
-	<repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+	<dependency>
+	    <groupId>com.github.DRAGNIL68</groupId>
+	    <artifactId>outmodedlib</artifactId>
+	    <version>Tag</version>
+	</dependency>
 ```
 gradle
 ```
