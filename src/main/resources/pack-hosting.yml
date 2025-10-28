@@ -1,0 +1,7 @@
+# config for resource pack hosting config
+
+enabled: true
+server-ip: "127.0.0.1"
+port: 8090
+force-pack: true # disconnects the client if they do not accept the pack
+prompt-message: "<green> Please Download The Resource Pack!"

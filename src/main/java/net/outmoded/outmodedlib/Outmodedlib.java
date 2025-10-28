@@ -1,6 +1,10 @@
 package net.outmoded.outmodedlib;
 
+import io.papermc.paper.command.brigadier.Commands;
 import net.outmoded.outmodedlib.GUIcontainers.ContainerListener;
+import net.outmoded.outmodedlib.commands.OutmodedCommand;
+import net.outmoded.outmodedlib.commands.OutmodedCommandTabComplete;
+import net.outmoded.outmodedlib.config.HostingConfig;
 import net.outmoded.outmodedlib.items.listener.*;
 import net.outmoded.outmodedlib.packer.InternalContent;
 import net.outmoded.outmodedlib.packer.ResourcePackServer.ResourcePackManager;
@@ -9,18 +13,12 @@ import net.outmoded.outmodedlib.particles.ParticleManager;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.eclipse.jetty.logging.JettyLevel;
-import org.eclipse.jetty.logging.JettyLoggerConfiguration;
-import org.eclipse.jetty.logging.JettyLoggerFactory;
-
-import java.util.Arrays;
-
 
 public final class Outmodedlib extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // version check
+
         // should only be one minor versions I.e. supported version 1.21.7
         String version = Bukkit.getMinecraftVersion();
         Bukkit.getPluginManager().getPlugin("outmodedlib").getPluginMeta().getVersion();
@@ -29,15 +27,17 @@ public final class Outmodedlib extends JavaPlugin {
             Outmodedlib.getInstance().getLogger().warning("you are running a unsupported version: supported version = 1.21.7 ");
         }
 
-//        JettyLoggerFactory jettyLoggerFactory = new JettyLoggerFactory(new JettyLoggerConfiguration());
-//        Outmodedlib.getInstance().getLogger().warning("loggers "+ Arrays.toString(jettyLoggerFactory.getLoggerNames()));
-//
-//        jettyLoggerFactory.getJettyLogger("ROOT").setLevel(JettyLevel.TRACE);
-
         int pluginId = 25745;
         Metrics metrics = new Metrics(this, pluginId);
 
-        ResourcePackManager.getInstance().startResourcePackServer();
+        HostingConfig.load();
+
+        getCommand("outmodedlib").setExecutor(new OutmodedCommand());
+        getCommand("outmodedlib").setTabCompleter(new OutmodedCommandTabComplete());
+
+        if (HostingConfig.isEnabled())
+            ResourcePackManager.getInstance().startResourcePackServer(HostingConfig.getIp(), HostingConfig.getPort());
+
         Bukkit.getPluginManager().registerEvents(new ResourcePackManagerListener(), this); // resource pack server listener
 
         Bukkit.getPluginManager().registerEvents(new ContainerListener(), this); // custom gui listener

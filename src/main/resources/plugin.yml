@@ -1,6 +1,14 @@
 name: outmodedlib
-version: '1.4.1'
+version: '1.5.0'
 main: net.outmoded.outmodedlib.Outmodedlib
 api-version: '1.21'
 author: DRAGNIL68
 description: a library for all things custom
+commands:
+  outmodedlib:
+    aliases: [ol]
+    description: Insert Text Here
+    permission: outmodedlib
+
+outmodedlib:
+  default: op
