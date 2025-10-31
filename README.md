@@ -21,6 +21,7 @@ maven
 	    <groupId>com.github.DRAGNIL68</groupId>
 	    <artifactId>outmodedlib</artifactId>
 	    <version>v1.4.1</version>
+	    <scope>provided</scope>
 	</dependency>
 ```
 gradle

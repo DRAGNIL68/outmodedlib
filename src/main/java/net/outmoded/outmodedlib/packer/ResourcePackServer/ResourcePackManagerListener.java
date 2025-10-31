@@ -22,6 +22,7 @@ public class ResourcePackManagerListener implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         ResourcePackManager.getInstance().applyAllResourcePacksToPlayer(event.getPlayer());
+
     }
 
 
