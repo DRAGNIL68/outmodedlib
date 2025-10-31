@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
-import net.outmoded.outmodedlib.InternalPackContent;
 import net.outmoded.outmodedlib.packer.jsonObjects.Writable;
 import org.jetbrains.annotations.ApiStatus;
 

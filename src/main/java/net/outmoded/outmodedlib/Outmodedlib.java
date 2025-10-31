@@ -1,12 +1,11 @@
 package net.outmoded.outmodedlib;
 
-import io.papermc.paper.command.brigadier.Commands;
 import net.outmoded.outmodedlib.GUIcontainers.ContainerListener;
 import net.outmoded.outmodedlib.commands.OutmodedCommand;
 import net.outmoded.outmodedlib.commands.OutmodedCommandTabComplete;
 import net.outmoded.outmodedlib.config.HostingConfig;
 import net.outmoded.outmodedlib.items.listener.*;
-import net.outmoded.outmodedlib.packer.InternalContent;
+import net.outmoded.outmodedlib.packer.InternalPackContent;
 import net.outmoded.outmodedlib.packer.ResourcePackServer.ResourcePackManager;
 import net.outmoded.outmodedlib.packer.ResourcePackServer.ResourcePackManagerListener;
 import net.outmoded.outmodedlib.particles.ParticleManager;
@@ -51,7 +50,7 @@ public final class Outmodedlib extends JavaPlugin {
 
 
 
-        InternalContent.registerInternalCustomContent();
+        InternalPackContent.registerInternalCustomContent();
         //PackGenTest.runPack();
 
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){

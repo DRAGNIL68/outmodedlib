@@ -66,8 +66,6 @@ public class ResourcePackManager {
                 byte[] seedBytes = key.getBytes(StandardCharsets.UTF_8);
                 UUID generatedUuid = UUID.nameUUIDFromBytes(seedBytes);
 
-                Outmodedlib.getInstance().getLogger().warning(resourcePackData.getUrl());
-
                 final ResourcePackInfo PACK_INFO = ResourcePackInfo.resourcePackInfo()
                         .uri(URI.create(resourcePackData.getUrl()))
                         .hash(resourcePacksPaths.get(key).getMd5Hash())
