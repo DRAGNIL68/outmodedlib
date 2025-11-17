@@ -280,7 +280,7 @@ public class ResourcePackManager {
 
         public String getUrl(){
             if (staticUrl == null){
-                return "https://"+HostingConfig.getIp()+":"+ResourcePackManager.getInstance().port+"/"+resourcePacksPaths.get(resourcePackId).path.getFileName();
+                return "http://"+HostingConfig.getIp()+":"+ResourcePackManager.getInstance().port+"/"+resourcePacksPaths.get(resourcePackId).path.getFileName();
 
             }
             return staticUrl;
