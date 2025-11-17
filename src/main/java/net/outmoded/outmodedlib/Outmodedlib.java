@@ -35,7 +35,7 @@ public final class Outmodedlib extends JavaPlugin {
         getCommand("outmodedlib").setTabCompleter(new OutmodedCommandTabComplete());
 
         if (HostingConfig.isEnabled())
-            ResourcePackManager.getInstance().startResourcePackServer(HostingConfig.getIp(), HostingConfig.getPort());
+            ResourcePackManager.getInstance().startResourcePackServer("0.0.0.0", HostingConfig.getPort());
 
         Bukkit.getPluginManager().registerEvents(new ResourcePackManagerListener(), this); // resource pack server listener
 

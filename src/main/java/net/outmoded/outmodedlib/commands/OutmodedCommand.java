@@ -27,6 +27,8 @@ public class OutmodedCommand implements CommandExecutor {
 
             if (Objects.equals(args[0], "reload")) {
                 HostingConfig.load();
+
+                ResourcePackManager.getInstance().startResourcePackServer("0.0.0.0", HostingConfig.getPort());
                 sender.sendMessage("[outmodedlib] Reloaded!");
                 return true;
             }

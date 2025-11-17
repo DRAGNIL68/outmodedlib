@@ -99,6 +99,7 @@ public class ResourcePackManager {
         this.ip = ip;
         this.port = port;
 
+        ResourcePackManager.getInstance().stopResourcePackServer();
 
 
 
@@ -279,7 +280,7 @@ public class ResourcePackManager {
 
         public String getUrl(){
             if (staticUrl == null){
-                return "http://"+ResourcePackManager.getInstance().ip+":"+ResourcePackManager.getInstance().port+"/"+resourcePacksPaths.get(resourcePackId).path.getFileName();
+                return "https://"+HostingConfig.getIp()+":"+ResourcePackManager.getInstance().port+"/"+resourcePacksPaths.get(resourcePackId).path.getFileName();
 
             }
             return staticUrl;
