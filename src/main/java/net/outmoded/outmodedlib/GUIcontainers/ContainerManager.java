@@ -41,10 +41,10 @@ public class ContainerManager {
 
         if (customContainer != null) {
 
-            if (event.getClickedInventory() != event.getView().getTopInventory()){
-                return;
-
-            }
+//            if (event.getClickedInventory() != event.getView().getTopInventory()){
+//                return;
+//
+//            }
             boolean[] disabledSlots = customContainer.getDisabledSlots();
 
 
@@ -55,6 +55,7 @@ public class ContainerManager {
                 }
 
             }
+
 
             customContainer.onClick(event);
 
