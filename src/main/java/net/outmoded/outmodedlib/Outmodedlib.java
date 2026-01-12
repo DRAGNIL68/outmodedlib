@@ -23,7 +23,7 @@ public final class Outmodedlib extends JavaPlugin {
         Bukkit.getPluginManager().getPlugin("outmodedlib").getPluginMeta().getVersion();
         if (!version.equals("1.21.11")){
             getServer().getConsoleSender().sendMessage(version);
-            Outmodedlib.getInstance().getLogger().warning("you are running a unsupported version: supported version = 1.21.11ss ");
+            Outmodedlib.getInstance().getLogger().warning("you are running a unsupported version: supported version = 1.21.11");
         }
 
         int pluginId = 25745;

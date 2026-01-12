@@ -36,6 +36,11 @@ public abstract class BaseItemModelDefinition extends Writable {
 
     }
 
+    public void setOversizedInGui(boolean b){
+        baseProperties.put("oversized_in_gui", b);
+
+    }
+
     public void setFallback(BaseItemModelDefinition modelDefinition){
         baseProperties.put("fallback", modelDefinition.getHashmap());
     }
