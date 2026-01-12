@@ -18,12 +18,12 @@ public final class Outmodedlib extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        // should only be one minor versions I.e. supported version 1.21.7
+        // should only be one minor versions I.e. supported version 1.21.11
         String version = Bukkit.getMinecraftVersion();
         Bukkit.getPluginManager().getPlugin("outmodedlib").getPluginMeta().getVersion();
-        if (!version.equals("1.21.7")){
+        if (!version.equals("1.21.11")){
             getServer().getConsoleSender().sendMessage(version);
-            Outmodedlib.getInstance().getLogger().warning("you are running a unsupported version: supported version = 1.21.7 ");
+            Outmodedlib.getInstance().getLogger().warning("you are running a unsupported version: supported version = 1.21.11ss ");
         }
 
         int pluginId = 25745;
@@ -35,7 +35,7 @@ public final class Outmodedlib extends JavaPlugin {
         getCommand("outmodedlib").setTabCompleter(new OutmodedCommandTabComplete());
 
         if (HostingConfig.isEnabled())
-            ResourcePackManager.getInstance().startResourcePackServer("0.0.0.0", HostingConfig.getPort());
+            ResourcePackManager.getInstance().startResourcePackServer("0.0.0.0", HostingConfig.getPort()); // this should be 0.0.0.0
 
         Bukkit.getPluginManager().registerEvents(new ResourcePackManagerListener(), this); // resource pack server listener
 
