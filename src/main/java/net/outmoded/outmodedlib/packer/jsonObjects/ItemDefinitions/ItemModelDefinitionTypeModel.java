@@ -1,7 +1,7 @@
 package net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.ModelModelTypeTintProperties;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.ModelTypeTintProperties;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.TintPropertiesInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +31,7 @@ public class ItemModelDefinitionTypeModel extends BaseItemModelDefinition {
 
     }
 
-    public <T> ItemModelDefinitionTypeModel addTint(@NotNull ModelModelTypeTintProperties<T> type , @NotNull TintPropertiesInterface<T> value){
+    public <T> ItemModelDefinitionTypeModel addTint(@NotNull ModelTypeTintProperties<T> type , @NotNull TintPropertiesInterface<T> value){
         tints.add(value);
         baseProperties.put("tints", tints);
         return this;

@@ -3,6 +3,15 @@ package net.outmoded.outmodedlib.packer;
 import net.outmoded.outmodedlib.Outmodedlib;
 import net.outmoded.outmodedlib.items.CustomItemStack;
 import net.outmoded.outmodedlib.items.ItemManager;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeModel;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeSelect;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.ChargeType.ChargeType;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.ChargeType.ChargeTypeCase;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.DisplayContext.DisplayContext;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.SelectModelTypeProperties;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.ModelTypeTintProperties;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.TintCustomModelData;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.TintDye;
 import org.bukkit.Material;
 
 public class InternalPackContent {
@@ -21,6 +30,7 @@ public class InternalPackContent {
         customItemStack.asItemStack().getItemMeta().setHideTooltip(true);
         customItemStack.setName("");
         ItemManager.getInstance().registerCustomItemStack(customItemStack);
+
 
     }
 

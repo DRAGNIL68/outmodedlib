@@ -12,6 +12,12 @@ import static net.outmoded.outmodedlib.packer.PackerUtils.splitNamespaceId;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class BaseItemModelDefinition extends Writable {
+    @JsonProperty("oversized_in_gui")
+    private Boolean oversizedInGui = null;
+
+    @JsonProperty("hand_animation_on_swap")
+    private Boolean handAnimationOnSwap = null;
+
     @JsonProperty("model")
     protected final Map<String, Object> baseProperties = new HashMap<>();
 
@@ -32,12 +38,12 @@ public abstract class BaseItemModelDefinition extends Writable {
     }
 
     public void setHandAnimationOnSwap(boolean b){
-        baseProperties.put("hand_animation_on_swap", b);
+        handAnimationOnSwap = b;
 
     }
 
     public void setOversizedInGui(boolean b){
-        baseProperties.put("oversized_in_gui", b);
+        oversizedInGui = b;
 
     }
 

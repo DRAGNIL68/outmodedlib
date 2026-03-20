@@ -5,10 +5,9 @@ import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefi
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.ItemModelDefinitionTypeSelect;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.BlockState.BlockState;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.ChargeType.ChargeTypeCase;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.ModelModelTypeTintProperties;
+import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.ModelTypeTintProperties;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.tintsProperties.TintConstant;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.DisplayContext.DisplayContextCase;
-import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.DisplayContext.DisplayContext;
 import net.outmoded.outmodedlib.packer.jsonObjects.ItemDefinitions.selectProperties.SelectModelTypeProperties;
 import net.outmoded.outmodedlib.packer.jsonObjects.McMeta;
 import net.outmoded.outmodedlib.packer.jsonObjects.sounds.Sound;
@@ -25,7 +24,7 @@ public class PackGenTest { // an example for generating a pack
         ItemModelDefinitionTypeSelect modelDefinitionTypeSelect = new ItemModelDefinitionTypeSelect("test_pack:test_select", SelectModelTypeProperties.BLOCK_STATE, new BlockState());
         ItemModelDefinitionTypeModel itemModelDefinitionTypeModel = new ItemModelDefinitionTypeModel("mypvpz:katana", "e");
 
-        itemModelDefinitionTypeModel.addTint(ModelModelTypeTintProperties.CONSTANT, TintConstant.tintConstant().setValue(1).build());
+        itemModelDefinitionTypeModel.addTint(ModelTypeTintProperties.CONSTANT, TintConstant.tintConstant().setValue(1).build());
 
         modelDefinitionTypeSelect.addCase(new DisplayContextCase(new DisplayContextCase.When[]{DisplayContextCase.When.FIXED, DisplayContextCase.When.GUI}, itemModelDefinitionTypeModel));
 
