@@ -37,6 +37,6 @@ gradle
 ```
 
 	dependencies {
-	        implementation 'com.github.DRAGNIL68:outmodedlib:v1.4.1'
+	        implementation 'com.github.DRAGNIL68:outmodedlib:v1.5.3'
 	}
 ```
