@@ -20,7 +20,7 @@ maven
 	<dependency>
 	    <groupId>com.github.DRAGNIL68</groupId>
 	    <artifactId>outmodedlib</artifactId>
-	    <version>v1.4.1</version>
+	    <version>v1.5.3</version>
 	    <scope>provided</scope>
 	</dependency>
 ```
