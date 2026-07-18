@@ -39,9 +39,7 @@ public class ResourcePackManager {
     private String ip;
     private int port;
 
-    private ResourcePackManager(){
-
-    }
+    private ResourcePackManager(){}
 
     public static ResourcePackManager getInstance() {
         if (resourcePackManagerInstance == null) {
@@ -101,9 +99,6 @@ public class ResourcePackManager {
 
         ResourcePackManager.getInstance().stopResourcePackServer();
 
-
-
-
         try {
             try (ServerSocket socket = new ServerSocket(port)) {
 
@@ -153,9 +148,6 @@ public class ResourcePackManager {
             else{
                 exchange.sendResponseHeaders(404, -1);
             }
-
-
-
 
         });
 
@@ -280,7 +272,7 @@ public class ResourcePackManager {
 
         public String getUrl(){
             if (staticUrl == null){
-                return "https://"+HostingConfig.getIp()+":"+ResourcePackManager.getInstance().port+"/"+resourcePacksPaths.get(resourcePackId).path.getFileName();
+                return HostingConfig.getIp()+":"+ResourcePackManager.getInstance().port+"/"+resourcePacksPaths.get(resourcePackId).path.getFileName();
 
             }
             return staticUrl;

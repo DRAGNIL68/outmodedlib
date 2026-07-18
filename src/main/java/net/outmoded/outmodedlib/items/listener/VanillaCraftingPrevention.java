@@ -52,7 +52,6 @@ public class VanillaCraftingPrevention implements Listener { // prevents custom 
 
 
             if (itemStack1NamespacedId != null || itemStack2NamespacedId != null){
-                Outmodedlib.getInstance().getLogger().warning("error3 ");
                 event.getInventory().setResult(null);
                 return;
             }
@@ -63,7 +62,6 @@ public class VanillaCraftingPrevention implements Listener { // prevents custom 
         int loopSlots = 9; // auto set up for a 3x3 crafting grid
         if (event.getInventory().getType() == InventoryType.CRAFTING){ // if it turns out it's the 2x2 in the players inv set it to 4
             loopSlots = 4;
-            Outmodedlib.getInstance().getLogger().warning("2x2 grid");
         }
 
 
@@ -101,7 +99,6 @@ public class VanillaCraftingPrevention implements Listener { // prevents custom 
 
                 if (ingredients.get(chars[i]) instanceof RecipeChoice.MaterialChoice) { // checks if it's an instance of RecipeChoice.MaterialChoice
                     if (ItemManager.getInstance().isCustomItemStack(itemStack)) { // checks if the item in the grid is a custom item
-                        Outmodedlib.getInstance().getLogger().warning("error2");
                         event.getInventory().setResult(null);
                         return;
                     }
@@ -128,7 +125,6 @@ public class VanillaCraftingPrevention implements Listener { // prevents custom 
                     if (recipeChoice instanceof RecipeChoice.MaterialChoice) { // checks if it's an instance of RecipeChoice.MaterialChoice, if so stops the use of custom items
                         RecipeChoice.MaterialChoice materialChoice = (RecipeChoice.MaterialChoice) recipeChoice;
                         if (ItemManager.getInstance().isCustomItemStack(itemStack)) {
-                            Outmodedlib.getInstance().getLogger().warning("error");
                             event.getInventory().setResult(null);
                             return;
 
