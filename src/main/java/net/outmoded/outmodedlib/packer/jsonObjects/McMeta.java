@@ -14,8 +14,6 @@ public class McMeta extends Writable {
         setFilePath("pack.mcmeta");
         pack.put("pack_format", version);
         pack.put("description", description);
-
-        new ItemModelDefinitionTypeSelect("e", SelectModelTypeProperties.DISPLAY_CONTEXT, new DisplayContext());
     }
 
 }
