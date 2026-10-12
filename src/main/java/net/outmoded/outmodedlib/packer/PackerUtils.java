@@ -17,8 +17,7 @@ import java.util.UUID;
 
 public abstract class PackerUtils {
 
-
-    // stolen from stackoverflow
+    // stolen from StackOverflow
     @ApiStatus.Internal
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
@@ -120,7 +119,6 @@ public abstract class PackerUtils {
         return UUID.nameUUIDFromBytes(seedBytes);
     }
 
-
     public static char getUnicodeCharFromInt(int integer){
         return (char)integer;
     }
@@ -133,32 +131,43 @@ public abstract class PackerUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public static void base64ToTexture(String textureAsBase64, String path){
         try {
             byte[] decodedBytes = Base64.getDecoder().decode(textureAsBase64);
             FileUtils.writeByteArrayToFile(new File(path), decodedBytes);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /**
      * splits a string into its parts, example "test:cool_sword" = [0]"test" [1]"cool_sword"
-     * @param namespaceId
-     * @return
      */
     public static String[] splitNamespaceId(String namespaceId){
         String id = namespaceId.substring(namespaceId.lastIndexOf(':') + 1);
         String namespace = namespaceId.replace(":" + id, "");
 
         return new String[]{namespace, id};
+    }
 
+    /**
+     * converts a namespaced id to a path
+     */
+    public String namespacedIdPath(String namespacedId){
+        String[] split = splitNamespaceId(namespacedId);
+        return "assets/"+split[0]+"/"+split[1];
+    }
 
+    /**
+     * Converts a path to namespaced id.
+     * <p>
+     * Will only work if the path contains "assets/"
+     */
+    public String pathNamespacedId(String path){
+        path = path.replaceFirst("assets/", "");
+        return path.replaceFirst("/", ":");
     }
 
 }
